@@ -264,25 +264,6 @@ body.tt #sync-status.err{color:#ff4400 !important;}
   <div id="scorelist"></div>
 </div>
 
-<div id="pg-config" class="pg">
-  <div class="cfgsec">
-    <div class="cfgtitle">▸ Participantes</div>
-    <div class="info-box">Los participantes se guardan en la nube. <strong>Todos comparten la misma lista.</strong></div>
-    <div class="cfgrow">
-      <input class="cfginp" id="cfg-np" placeholder="Nombre participante" type="text" autocorrect="off" autocapitalize="words">
-      <button class="cfgbtn" onclick="addPart()">+ Añadir</button>
-    </div>
-    <div class="taglist" id="parttags"></div>
-  </div>
-  <div class="cfgsec">
-    <div class="cfgtitle">▸ Pronósticos</div>
-    <div class="pchips" id="cfgpartchips"></div>
-    <div class="pgfilt" id="cfggrppills"></div>
-    <div id="cfgform"></div>
-    <button class="savebtn" id="savepronobtn" onclick="saveAllPronos()">▸ Guardar Pronósticos</button>
-  </div>
-</div>
-
 <nav id="nav">
   <button class="nb on" id="nb-ranking" onclick="goPage('ranking')">
     <span class="ni">🏆</span><span>RANKING</span>
@@ -292,9 +273,6 @@ body.tt #sync-status.err{color:#ff4400 !important;}
   </button>
   <button class="nb" id="nb-scores" onclick="goPage('scores')">
     <span class="ni">✏️</span><span>SCORES</span>
-  </button>
-  <button class="nb" id="nb-config" onclick="goPage('config')">
-    <span class="ni">⚙️</span><span>CONFIG</span>
   </button>
 </nav>
 
@@ -389,15 +367,311 @@ var P = [
    DATOS DEMO (solo para primera carga si el bin está vacío)
 ===================================================== */
 var DEMO = {
-  participantes: ['Carlos','Ana','Miguel','Lucía','Javi'],
-  resultados: {a1:'2-0',a2:'1-1',b1:'2-1',b2:'0-1',c1:'0-2',c2:'3-1',d1:'1-0',d2:'1-2',e1:'1-1',e2:'4-0',f1:'2-1',f2:'1-0',g1:'0-1',g2:'2-0',h1:'1-2',h2:'3-0',i1:'2-1',i2:'1-0',j1:'2-0',j2:'1-1',k1:'2-1',k2:'0-1',l1:'2-0',l2:'1-1'},
-  pronos: {
-    Carlos:{a1:'2-0',a2:'1-1',b1:'2-1',b2:'0-1',c1:'0-2',c2:'3-1',d1:'2-0',d2:'1-2',e1:'1-1',e2:'4-0',f1:'2-1',f2:'1-0',g1:'0-1',g2:'3-0',h1:'1-2',h2:'3-0',i1:'2-1',i2:'1-0',j1:'2-0',j2:'1-1',k1:'2-1',k2:'0-1',l1:'2-0',l2:'1-1',a3:'2-1',a4:'0-1',a5:'1-0',a6:'1-1',b3:'2-0',b4:'1-1',b5:'0-2',b6:'1-0',c3:'1-0',c4:'0-2',c5:'2-0',c6:'3-0',d3:'2-0',d4:'1-1',d5:'0-1',d6:'1-2',e3:'0-2',e4:'0-1',e5:'1-3',e6:'0-2',f3:'1-0',f4:'0-1',f5:'1-1',f6:'0-2',g3:'0-2',g4:'1-0',g5:'0-3',g6:'1-0',h3:'1-3',h4:'1-1',h5:'0-2',h6:'0-1',i3:'2-0',i4:'0-1',i5:'1-0',i6:'0-2',j3:'2-0',j4:'1-1',j5:'0-1',j6:'0-3',k3:'3-0',k4:'0-1',k5:'2-1',k6:'0-2',l3:'2-0',l4:'0-1',l5:'1-0',l6:'2-0'},
-    Ana:{a1:'2-1',a2:'0-1',a3:'1-1',a4:'1-0',a5:'2-0',a6:'0-1',b1:'1-1',b2:'1-0',b3:'2-1',b4:'0-0',b5:'1-0',b6:'2-1',c1:'1-2',c2:'2-1',c3:'0-1',c4:'0-1',c5:'1-0',c6:'3-1',d1:'1-0',d2:'2-1',d3:'2-1',d4:'0-1',d5:'1-0',d6:'0-2',e1:'0-0',e2:'3-0',e3:'1-2',e4:'1-0',e5:'0-2',e6:'1-0',f1:'1-1',f2:'2-0',f3:'2-0',f4:'1-1',f5:'0-1',f6:'1-2',g1:'1-0',g2:'1-0',g3:'0-1',g4:'0-0',g5:'1-2',g6:'2-0',h1:'0-1',h2:'2-0',h3:'0-3',h4:'0-2',h5:'1-2',h6:'1-0',i1:'1-1',i2:'0-0',i3:'2-1',i4:'1-1',i5:'0-1',i6:'1-2',j1:'1-0',j2:'0-1',j3:'3-0',j4:'0-0',j5:'1-0',j6:'0-2',k1:'1-1',k2:'1-0',k3:'2-0',k4:'1-1',k5:'1-0',k6:'0-3',l1:'1-1',l2:'2-0',l3:'3-0',l4:'0-1',l5:'0-1',l6:'1-0'},
-    Miguel:{a1:'3-0',a2:'1-0',a3:'2-0',a4:'0-2',a5:'0-0',a6:'2-1',b1:'3-1',b2:'0-0',b3:'1-0',b4:'2-1',b5:'1-1',b6:'0-1',c1:'0-1',c2:'4-0',c3:'1-1',c4:'0-3',c5:'0-2',c6:'2-0',d1:'1-0',d2:'0-1',d3:'1-0',d4:'2-0',d5:'1-1',d6:'1-1',e1:'2-0',e2:'5-0',e3:'0-1',e4:'0-0',e5:'1-2',e6:'0-1',f1:'3-1',f2:'0-0',f3:'1-0',f4:'0-1',f5:'2-0',f6:'0-2',g1:'0-2',g2:'3-0',g3:'1-2',g4:'2-1',g5:'0-2',g6:'0-0',h1:'2-1',h2:'4-0',h3:'0-2',h4:'1-0',h5:'0-3',h6:'0-2',i1:'3-0',i2:'2-0',i3:'2-0',i4:'0-2',i5:'0-1',i6:'0-3',j1:'3-0',j2:'1-0',j3:'2-0',j4:'0-1',j5:'0-2',j6:'0-4',k1:'3-0',k2:'0-2',k3:'2-0',k4:'0-2',k5:'3-0',k6:'0-1',l1:'3-0',l2:'0-1',l3:'2-0',l4:'0-2',l5:'1-0',l6:'1-0'},
-    Lucía:{a1:'1-1',a2:'2-0',a3:'1-0',a4:'1-1',a5:'0-1',a6:'1-2',b1:'2-0',b2:'1-1',b3:'0-1',b4:'1-0',b5:'2-1',b6:'1-1',c1:'0-3',c2:'2-2',c3:'0-2',c4:'1-1',c5:'1-1',c6:'2-0',d1:'0-0',d2:'1-1',d3:'1-1',d4:'1-2',d5:'2-0',d6:'0-0',e1:'1-1',e2:'3-1',e3:'1-1',e4:'1-1',e5:'0-1',e6:'1-1',f1:'2-0',f2:'1-1',f3:'0-1',f4:'1-0',f5:'1-0',f6:'1-1',g1:'0-1',g2:'1-1',g3:'1-1',g4:'1-0',g5:'1-2',g6:'1-1',h1:'1-1',h2:'2-1',h3:'0-2',h4:'1-1',h5:'1-1',h6:'0-1',i1:'2-0',i2:'1-1',i3:'1-0',i4:'1-1',i5:'1-0',i6:'1-1',j1:'1-0',j2:'1-1',j3:'1-0',j4:'1-1',j5:'1-0',j6:'0-1',k1:'1-0',k2:'1-1',k3:'1-0',k4:'1-1',k5:'1-0',k6:'0-1',l1:'1-0',l2:'1-1',l3:'1-0',l4:'1-1',l5:'1-0',l6:'0-1'},
-    Javi:{a1:'1-0',a2:'0-0',a3:'1-0',a4:'2-1',a5:'1-2',a6:'0-1',b1:'1-0',b2:'0-1',b3:'0-0',b4:'1-0',b5:'1-0',b6:'0-1',c1:'0-1',c2:'2-0',c3:'2-0',c4:'0-1',c5:'1-0',c6:'2-1',d1:'1-0',d2:'1-0',d3:'1-0',d4:'1-0',d5:'0-0',d6:'1-1',e1:'0-1',e2:'3-0',e3:'0-1',e4:'0-1',e5:'1-1',e6:'0-1',f1:'1-0',f2:'1-0',f3:'1-0',f4:'0-0',f5:'0-1',f6:'0-1',g1:'0-1',g2:'1-0',g3:'0-1',g4:'0-0',g5:'0-1',g6:'0-1',h1:'1-0',h2:'2-0',h3:'0-2',h4:'0-1',h5:'0-1',h6:'0-1',i1:'2-0',i2:'1-0',i3:'1-0',i4:'0-0',i5:'0-0',i6:'0-1',j1:'1-0',j2:'1-0',j3:'2-1',j4:'0-1',j5:'0-0',j6:'0-2',k1:'2-0',k2:'0-0',k3:'1-0',k4:'0-1',k5:'2-1',k6:'0-1',l1:'1-0',l2:'2-1',l3:'1-0',l4:'0-1',l5:'1-1',l6:'0-1'}
-  }
+  "participantes": [
+    "Pedro",
+    "Turraic",
+    "Frutinho Jr.",
+    "Nachovic"
+  ],
+  "pronos": {
+    "Pedro": {
+      "a1": "2-1",
+      "a2": "1-1",
+      "b1": "1-1",
+      "b2": "0-3",
+      "c2": "1-1",
+      "c1": "0-4",
+      "d1": "1-1",
+      "d2": "1-3",
+      "e2": "7-0",
+      "e1": "1-2",
+      "f1": "1-2",
+      "f2": "2-0",
+      "g2": "2-1",
+      "g1": "2-0",
+      "h2": "6-0",
+      "h1": "1-3",
+      "i1": "3-0",
+      "i2": "2-0",
+      "j1": "2-1",
+      "j2": "3-0",
+      "k6": "0-2",
+      "k5": "2-1",
+      "l1": "1-1",
+      "l2": "2-2",
+      "a5": "2-1",
+      "a6": "1-1",
+      "b4": "3-1",
+      "b3": "3-0",
+      "c5": "2-0",
+      "c6": "5-0",
+      "d3": "2-0",
+      "d4": "2-1",
+      "e3": "0-2",
+      "e4": "0-4",
+      "f3": "2-1",
+      "f4": "1-2",
+      "g3": "1-2",
+      "g4": "3-0",
+      "h3": "1-4",
+      "h4": "0-4",
+      "i6": "0-4",
+      "i5": "2-2",
+      "j3": "1-1",
+      "j4": "0-2",
+      "k3": "3-0",
+      "k4": "1-3",
+      "l3": "3-1",
+      "l4": "1-2",
+      "a3": "2-1",
+      "a4": "2-2",
+      "b6": "2-1",
+      "b5": "2-0",
+      "c4": "0-3",
+      "c3": "0-5",
+      "d6": "3-1",
+      "d5": "2-1",
+      "e6": "1-3",
+      "e5": "1-1",
+      "f5": "1-1",
+      "f6": "1-3",
+      "g5": "0-4",
+      "g6": "2-1",
+      "h5": "1-3",
+      "h6": "1-2",
+      "i3": "3-0",
+      "i4": "0-2",
+      "j5": "1-2",
+      "j6": "0-4",
+      "k1": "2-1",
+      "k2": "1-1",
+      "l6": "1-2",
+      "l5": "3-0"
+    },
+    "Turraic": {
+      "a1": "3-0",
+      "a2": "1-2",
+      "b1": "1-0",
+      "b2": "1-4",
+      "c2": "2-2",
+      "c1": "0-5",
+      "d1": "2-1",
+      "d2": "0-2",
+      "e2": "6-0",
+      "e1": "2-2",
+      "f1": "1-1",
+      "f2": "2-0",
+      "g2": "1-0",
+      "g1": "1-0",
+      "h2": "4-0",
+      "h1": "0-2",
+      "i1": "2-0",
+      "i2": "3-0",
+      "j1": "2-0",
+      "j2": "3-0",
+      "k6": "0-2",
+      "k5": "3-0",
+      "l1": "2-0",
+      "l2": "1-1",
+      "a5": "1-0",
+      "a6": "1-2",
+      "b4": "3-1",
+      "b3": "2-0",
+      "c5": "3-1",
+      "c6": "5-0",
+      "d3": "2-0",
+      "d4": "2-0",
+      "e3": "1-3",
+      "e4": "0-3",
+      "f3": "2-1",
+      "f4": "1-2",
+      "g3": "0-2",
+      "g4": "1-0",
+      "h3": "0-3",
+      "h4": "1-4",
+      "i6": "1-4",
+      "i5": "2-3",
+      "j3": "3-1",
+      "j4": "2-3",
+      "k3": "3-0",
+      "k4": "1-2",
+      "l3": "2-0",
+      "l4": "0-2",
+      "a3": "2-2",
+      "a4": "0-1",
+      "b6": "2-1",
+      "b5": "1-0",
+      "c4": "1-2",
+      "c3": "0-2",
+      "d6": "1-1",
+      "d5": "2-1",
+      "e6": "0-4",
+      "e5": "1-3",
+      "f5": "2-1",
+      "f6": "1-4",
+      "g5": "0-1",
+      "g6": "2-1",
+      "h5": "1-2",
+      "h6": "1-1",
+      "i3": "2-1",
+      "i4": "1-2",
+      "j5": "1-0",
+      "j6": "0-3",
+      "k1": "1-0",
+      "k2": "0-0",
+      "l6": "1-2",
+      "l5": "2-1"
+    },
+    "Frutinho Jr.": {
+      "a1": "2-0",
+      "a2": "0-0",
+      "b1": "1-0",
+      "b2": "0-2",
+      "c2": "1-1",
+      "c1": "0-2",
+      "d1": "2-0",
+      "d2": "0-3",
+      "e2": "6-0",
+      "e1": "0-2",
+      "f1": "1-0",
+      "f2": "1-0",
+      "g2": "2-0",
+      "g1": "2-0",
+      "h2": "6-0",
+      "h1": "0-2",
+      "i1": "3-0",
+      "i2": "3-0",
+      "j1": "1-0",
+      "j2": "3-0",
+      "k6": "0-4",
+      "k5": "2-0",
+      "l3": "2-0",
+      "l4": "0-3",
+      "a5": "1-0",
+      "a6": "1-1",
+      "b4": "1-0",
+      "b3": "2-0",
+      "c5": "2-1",
+      "c6": "5-0",
+      "d3": "3-0",
+      "d4": "2-0",
+      "e3": "0-3",
+      "e4": "0-5",
+      "f3": "2-1",
+      "f4": "0-2",
+      "g3": "0-1",
+      "g4": "1-0",
+      "h3": "1-4",
+      "h4": "0-2",
+      "i6": "0-4",
+      "i5": "1-2",
+      "j3": "2-0",
+      "j4": "0-2",
+      "k3": "4-0",
+      "k4": "0-1",
+      "l1": "0-1",
+      "l2": "2-0",
+      "a3": "1-0",
+      "a4": "0-1",
+      "b6": "1-1",
+      "b5": "2-1",
+      "c4": "0-2",
+      "c3": "1-4",
+      "d6": "1-1",
+      "d5": "1-1",
+      "e6": "0-5",
+      "e5": "0-2",
+      "f5": "0-0",
+      "f6": "0-3",
+      "g5": "0-1",
+      "g6": "1-1",
+      "h5": "0-3",
+      "h6": "0-2",
+      "i3": "3-1",
+      "i4": "0-2",
+      "j5": "0-0",
+      "j6": "0-3",
+      "k1": "2-1",
+      "k2": "1-1",
+      "l6": "0-2",
+      "l5": "1-0"
+    },
+    "Nachovic": {
+      "a1": "2-0",
+      "a2": "1-1",
+      "b1": "2-1",
+      "b2": "0-3",
+      "c2": "1-1",
+      "c1": "0-2",
+      "d1": "1-1",
+      "d2": "1-3",
+      "e2": "5-0",
+      "e1": "2-3",
+      "f1": "2-1",
+      "f2": "1-0",
+      "g2": "3-1",
+      "g1": "1-1",
+      "h2": "5-0",
+      "h1": "1-2",
+      "i1": "2-2",
+      "i2": "4-0",
+      "j1": "0-1",
+      "j2": "3-1",
+      "k6": "0-4",
+      "k5": "3-0",
+      "l1": "2-1",
+      "l2": "3-1",
+      "a5": "2-1",
+      "a6": "1-1",
+      "b4": "3-1",
+      "b3": "3-0",
+      "c5": "1-1",
+      "c6": "4-0",
+      "d3": "2-0",
+      "d4": "1-0",
+      "e3": "2-4",
+      "e4": "0-3",
+      "f3": "2-0",
+      "f4": "1-3",
+      "g3": "0-4",
+      "g4": "1-0",
+      "h3": "1-5",
+      "h4": "0-3",
+      "i6": "0-6",
+      "i5": "1-2",
+      "j3": "1-1",
+      "j4": "0-3",
+      "k3": "6-0",
+      "k4": "1-3",
+      "l3": "1-0",
+      "l4": "1-3",
+      "a3": "2-1",
+      "a4": "0-2",
+      "b6": "1-1",
+      "b5": "2-0",
+      "c4": "0-3",
+      "c3": "0-2",
+      "d6": "3-2",
+      "d5": "1-0",
+      "e6": "0-3",
+      "e5": "1-3",
+      "f5": "0-0",
+      "f6": "0-2",
+      "g5": "1-3",
+      "g6": "1-1",
+      "h5": "1-3",
+      "h6": "1-2",
+      "i3": "2-1",
+      "i4": "1-2",
+      "j5": "1-2",
+      "j6": "1-4",
+      "k1": "3-0",
+      "k2": "0-2",
+      "l6": "0-3",
+      "l5": "2-2"
+    }
+  },
+  "resultados": {}
 };
 
 /* =====================================================
@@ -750,105 +1024,9 @@ function clearScore(id) {
 }
 
 /* =====================================================
-   CONFIG
-===================================================== */
-function renderConfig() {
-  var t = '';
-  for (var i = 0; i < parts.length; i++)
-    t += '<div class="tag">' + esc(parts[i]) + '<button class="tagx" onclick="delPart(' + i + ')">✕</button></div>';
-  document.getElementById('parttags').innerHTML = t;
-  var pc = '';
-  for (var i = 0; i < parts.length; i++)
-    pc += '<button class="pchip' + (parts[i] === cfgPart ? ' on' : '') + '" onclick="setCfgPart(\'' + esc(parts[i]) + '\')">' + esc(parts[i]) + '</button>';
-  document.getElementById('cfgpartchips').innerHTML = pc;
-  var gs = 'ABCDEFGHIJKL'.split('');
-  var gp = '<button class="pill' + (cfgGrp === '' ? ' on' : '') + '" onclick="setCfgGrp(\'\')">Todos</button>';
-  for (var i = 0; i < gs.length; i++)
-    gp += '<button class="pill' + (cfgGrp === gs[i] ? ' on' : '') + '" onclick="setCfgGrp(\'' + gs[i] + '\')">G' + gs[i] + '</button>';
-  document.getElementById('cfggrppills').innerHTML = gp;
-  renderPronoForm();
-}
-function setCfgPart(n) { cfgPart = n; renderConfig(); }
-function setCfgGrp(g) { cfgGrp = g; renderConfig(); }
-function renderPronoForm() {
-  if (!cfgPart) {
-    document.getElementById('cfgform').innerHTML = '<div style="text-align:center;padding:20px;font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px">Selecciona un jugador</div>';
-    return;
-  }
-  var pp = P.slice();
-  if (cfgGrp) pp = pp.filter(function(x) { return x.g === cfgGrp; });
-  var h = '', lg = '';
-  for (var i = 0; i < pp.length; i++) {
-    var p = pp[i];
-    if (p.g !== lg) { h += '<div class="prgtitle">▸ Grupo ' + p.g + '</div>'; lg = p.g; }
-    var pk = pronos[cfgPart] ? pronos[cfgPart][p.id] : null;
-    var pl = '', pv = '';
-    if (pk) { var pp2 = pk.split('-'); pl = pp2[0]; pv = pp2[1]; }
-    h += '<div class="prrow">' +
-      '<div class="prteam r">' + p.l.e + ' ' + p.l.n + '</div>' +
-      '<input class="prinp" id="pi-l-' + p.id + '" type="number" inputmode="numeric" min="0" max="99" value="' + pl + '" placeholder="0">' +
-      '<span class="prsep">–</span>' +
-      '<input class="prinp" id="pi-v-' + p.id + '" type="number" inputmode="numeric" min="0" max="99" value="' + pv + '" placeholder="0">' +
-      '<div class="prteam">' + p.v.n + ' ' + p.v.e + '</div>' +
-    '</div>';
-  }
-  document.getElementById('cfgform').innerHTML = h;
-}
-function saveAllPronos() {
-  if (!cfgPart) { alert('Selecciona un jugador primero'); return; }
-  if (!pronos[cfgPart]) pronos[cfgPart] = {};
-  var pp = P.slice();
-  if (cfgGrp) pp = pp.filter(function(x) { return x.g === cfgGrp; });
-  for (var i = 0; i < pp.length; i++) {
-    var p = pp[i];
-    var li = document.getElementById('pi-l-' + p.id);
-    var vi = document.getElementById('pi-v-' + p.id);
-    if (li && vi && li.value !== '' && vi.value !== '')
-      pronos[cfgPart][p.id] = li.value + '-' + vi.value;
-  }
-  var btn = document.getElementById('savepronobtn');
-  btn.disabled = true;
-  btn.textContent = '▸ Guardando...';
-  binWrite(getCurrentData(), function(err) {
-    btn.disabled = false;
-    if (err) {
-      btn.textContent = '✗ Error, reintenta';
-      setTimeout(function() { btn.textContent = '▸ Guardar Pronósticos'; }, 3000);
-    } else {
-      btn.textContent = '✓ Guardado en la nube';
-      renderRanking();
-      setTimeout(function() { btn.textContent = '▸ Guardar Pronósticos'; }, 2500);
-    }
-  });
-}
-function addPart() {
-  var inp = document.getElementById('cfg-np');
-  var n = (inp.value || '').trim();
-  if (!n) return;
-  if (parts.indexOf(n) >= 0) { alert('Ya existe este participante'); return; }
-  parts.push(n);
-  if (!pronos[n]) pronos[n] = {};
-  inp.value = '';
-  binWrite(getCurrentData(), function(err) {
-    if (!err) { renderConfig(); populatePkParts(); renderRanking(); }
-    else alert('Error al guardar. Comprueba la conexión.');
-  });
-}
-function delPart(i) {
-  var n = parts[i];
-  if (!confirm('¿Eliminar a ' + n + '?')) return;
-  parts.splice(i, 1);
-  delete pronos[n];
-  binWrite(getCurrentData(), function(err) {
-    if (!err) { renderConfig(); populatePkParts(); renderRanking(); }
-    else alert('Error al guardar.');
-  });
-}
-
-/* =====================================================
    NAVEGACIÓN
 ===================================================== */
-var pages = ['ranking','picks','scores','config'];
+var pages = ['ranking','picks','scores'];
 function goPage(name) {
   for (var i = 0; i < pages.length; i++) {
     document.getElementById('pg-' + pages[i]).className = 'pg';
@@ -860,7 +1038,6 @@ function goPage(name) {
   window.scrollTo(0, 0);
   if (name === 'scores') renderScores();
   if (name === 'picks') { populatePkParts(); renderPicks(); }
-  if (name === 'config') renderConfig();
 }
 
 /* =====================================================
