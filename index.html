@@ -684,7 +684,10 @@ function renderScores() {
         '<input class="scinp" id="sv-' + p.id + '" type="number" inputmode="numeric" min="0" max="99" value="' + rv + '" placeholder="–">' +
         '<div class="scteam r">' + p.v.n + ' ' + p.v.e + '</div>' +
       '</div>' +
-      '<button class="scsave" onclick="saveScore(\'' + p.id + '\')">Guardar</button>' +
+      '<div style="display:-webkit-flex;display:flex;gap:8px;margin-top:9px">' +
+        '<button class="scsave" style="flex:1;-webkit-flex:1;margin-top:0" onclick="saveScore(\'' + p.id + '\')">Guardar</button>' +
+        '<button class="scsave" style="flex:0;-webkit-flex:0;padding:11px 14px;margin-top:0;background:rgba(255,100,100,.08);border-color:rgba(255,100,100,.3);color:#ff6b6b" onclick="clearScore(\'' + p.id + '\')">✕ Borrar</button>' +
+      '</div>' +
       '<div class="scok" id="sok-' + p.id + '">▸ Guardado en la nube ✓</div>' +
       '<div class="scerr" id="serr-' + p.id + '">✗ Error al guardar</div>' +
     '</div>';
@@ -695,8 +698,14 @@ function setScGrp(g) { scGrp = g; renderScores(); }
 function saveScore(id) {
   var lv = document.getElementById('sl-' + id).value;
   var rv = document.getElementById('sv-' + id).value;
-  if (lv === '' || rv === '') return;
-  reales[id] = lv + '-' + rv;
+  // Permitir guardar vacío para borrar resultado
+  if (lv === '' && rv === '') {
+    delete reales[id];
+  } else if (lv !== '' && rv !== '') {
+    reales[id] = lv + '-' + rv;
+  } else {
+    return; // uno vacío y otro no — no hacer nada
+  }
   var btn = document.querySelector('[onclick="saveScore(\'' + id + '\')"]');
   if (btn) btn.disabled = true;
   binWrite(getCurrentData(), function(err) {
@@ -710,6 +719,31 @@ function saveScore(id) {
       renderRanking();
       ok.style.display = 'block';
       setTimeout(function() { ok.style.display = 'none'; }, 2500);
+      renderScores();
+    }
+  });
+}
+
+function clearScore(id) {
+  delete reales[id];
+  var lel = document.getElementById('sl-' + id);
+  var vel = document.getElementById('sv-' + id);
+  if (lel) lel.value = '';
+  if (vel) vel.value = '';
+  var btn = document.querySelector('[onclick="clearScore(\'' + id + '\')"]');
+  if (btn) btn.disabled = true;
+  binWrite(getCurrentData(), function(err) {
+    if (btn) btn.disabled = false;
+    var ok = document.getElementById('sok-' + id);
+    var er = document.getElementById('serr-' + id);
+    if (err) {
+      er.style.display = 'block';
+      setTimeout(function() { er.style.display = 'none'; }, 3000);
+    } else {
+      renderRanking();
+      ok.textContent = '▸ Resultado borrado ✓';
+      ok.style.display = 'block';
+      setTimeout(function() { ok.style.display = 'none'; ok.textContent = '▸ Guardado en la nube ✓'; }, 2500);
       renderScores();
     }
   });
