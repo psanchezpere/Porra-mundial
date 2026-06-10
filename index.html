@@ -371,7 +371,8 @@ var DEMO = {
     "Pedro",
     "Turraic",
     "Frutinho Jr.",
-    "Nachovic"
+    "Nachovic",
+    "Inst. Nac. Cuñados de Bar"
   ],
   "pronos": {
     "Pedro": {
@@ -669,6 +670,80 @@ var DEMO = {
       "k2": "0-2",
       "l6": "0-3",
       "l5": "2-2"
+    },
+    "Inst. Nac. Cuñados de Bar": {
+      "a1": "2-0",
+      "a2": "1-1",
+      "b1": "0-2",
+      "b2": "0-2",
+      "c2": "2-1",
+      "c1": "0-3",
+      "d1": "2-1",
+      "d2": "0-4",
+      "e2": "5-0",
+      "e1": "1-2",
+      "f1": "2-1",
+      "f2": "1-0",
+      "g2": "2-0",
+      "g1": "2-0",
+      "h2": "5-1",
+      "h1": "1-2",
+      "i1": "3-1",
+      "i2": "2-0",
+      "j1": "3-1",
+      "j2": "3-0",
+      "k6": "0-4",
+      "k5": "2-0",
+      "l1": "1-1",
+      "l2": "2-1",
+      "a5": "2-0",
+      "a6": "1-1",
+      "b4": "2-2",
+      "b3": "0-1",
+      "c5": "2-1",
+      "c6": "5-0",
+      "d3": "2-0",
+      "d4": "1-1",
+      "e3": "1-2",
+      "e4": "0-3",
+      "f3": "2-0",
+      "f4": "1-2",
+      "g3": "0-3",
+      "g4": "2-0",
+      "h3": "0-3",
+      "h4": "0-3",
+      "i6": "0-4",
+      "i5": "1-1",
+      "j3": "2-2",
+      "j4": "1-3",
+      "k3": "4-0",
+      "k4": "0-2",
+      "l3": "3-1",
+      "l4": "0-2",
+      "a3": "2-2",
+      "a4": "1-3",
+      "b6": "3-0",
+      "b5": "2-1",
+      "c4": "0-3",
+      "c3": "0-3",
+      "d6": "1-1",
+      "d5": "2-1",
+      "e6": "1-2",
+      "e5": "3-2",
+      "f5": "2-1",
+      "f6": "0-2",
+      "g5": "0-3",
+      "g6": "1-1",
+      "h5": "1-2",
+      "h6": "1-1",
+      "i3": "2-1",
+      "i4": "0-0",
+      "j5": "1-2",
+      "j6": "0-3",
+      "k1": "3-1",
+      "k2": "1-1",
+      "l6": "0-3",
+      "l5": "1-1"
     }
   },
   "resultados": {}
@@ -851,9 +926,14 @@ function buildBD(n) {
   var h = '<div class="rdhead"><span class="rdtitle">' + esc(n) + '</span><span class="rdtotal">' + tot + ' pts</span></div>' +
     '<div class="rdscroll"><table class="rdtbl">' +
     '<thead><tr><th>Grp</th><th>Partido</th><th>Pick</th><th>Real</th><th>Exacto</th><th>1X2</th><th>G.Loc</th><th>G.Vis</th><th>Tot</th></tr></thead><tbody>';
+  // Ordenar: jornada primero, luego grupo alfabético
+  var sorted = P.slice().sort(function(a, b) {
+    if (a.j !== b.j) return a.j - b.j;
+    return a.g < b.g ? -1 : a.g > b.g ? 1 : 0;
+  });
   var lj = 0;
-  for (var i = 0; i < P.length; i++) {
-    var p = P[i];
+  for (var i = 0; i < sorted.length; i++) {
+    var p = sorted[i];
     if (p.j !== lj) {
       h += '<tr class="jsep"><td colspan="9">▸ JORNADA ' + p.j + ' — ' + (p.j===1?'11-17 Jun':p.j===2?'18-23 Jun':'24-27 Jun') + '</td></tr>';
       lj = p.j;
@@ -903,11 +983,22 @@ function renderPicks() {
   var pp = P.slice();
   if (grp) pp = pp.filter(function(x) { return x.g === grp; });
   if (jor) pp = pp.filter(function(x) { return x.j == jor; });
-  var h = '', lg = '', lj = 0;
+  // Ordenar: primero por jornada, luego por grupo alfabético
+  pp.sort(function(a, b) {
+    if (a.j !== b.j) return a.j - b.j;
+    return a.g < b.g ? -1 : a.g > b.g ? 1 : 0;
+  });
+  var h = '', lj = 0, lg = '';
   for (var i = 0; i < pp.length; i++) {
     var p = pp[i];
-    if (p.g !== lg) { h += '<div class="gsep">▸ Grupo ' + p.g + '</div>'; lg = p.g; lj = 0; }
-    if (p.j !== lj) { h += '<div style="font-size:10px;color:var(--t3);margin:-3px 0 6px;font-weight:700;letter-spacing:1px;text-transform:uppercase">Jornada ' + p.j + '</div>'; lj = p.j; }
+    if (p.j !== lj) {
+      h += '<div class="gsep">▸ JORNADA ' + p.j + '</div>';
+      lj = p.j; lg = '';
+    }
+    if (p.g !== lg) {
+      h += '<div style="font-size:10px;color:var(--t3);margin:6px 0 4px;font-weight:700;letter-spacing:1px;text-transform:uppercase">Grupo ' + p.g + '</div>';
+      lg = p.g;
+    }
     var pk = pronos[par] ? pronos[par][p.id] : null;
     var re = reales[p.id];
     var pts = pk && re ? calcPts(pk, re) : null;
