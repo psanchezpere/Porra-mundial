@@ -5,126 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
 <title>WC·2026·PORRA</title>
 <style>
-/* ---- RESET ---- */
-*{-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;}
-input,button,select{-webkit-appearance:none;appearance:none;font-size:16px;}/* 16px evita zoom en iOS */
-
-/* ---- VARIABLES ---- */
+*{-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+input,button,select{-webkit-appearance:none;appearance:none;font-size:16px;}
 :root{
   --bg:#070f1a;--surf:#0a1628;--surf2:#0d1f38;
   --c:#00ffc8;--c12:rgba(0,255,200,.12);--c25:rgba(0,255,200,.25);--c40:rgba(0,255,200,.40);
   --gold:#f0b429;--text:#e8f4f0;--t2:#7a9e96;--t3:#3a5e58;
   --bdr:rgba(0,255,200,.14);--bdr2:rgba(0,255,200,.30);
   --hh:54px;--nh:56px;
-  --sat:env(safe-area-inset-top,0px);
-  --sab:env(safe-area-inset-bottom,0px);
+  --sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);
 }
-
-/* ---- BASE ---- */
 html{background:var(--bg);height:100%;}
-body{
-  background:var(--bg);color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
-  font-size:14px;
-  /* Espacio para header fijo arriba + safe area */
-  padding-top:calc(var(--hh) + var(--sat));
-  /* Espacio para nav fija abajo + safe area */
-  padding-bottom:calc(var(--nh) + var(--sab));
-  min-height:100%;
-  /* SIN overflow:hidden — scroll nativo */
-  -webkit-overflow-scrolling:touch;
-}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:14px;padding-top:calc(var(--hh) + var(--sat));padding-bottom:calc(var(--nh) + var(--sab));min-height:100%;-webkit-overflow-scrolling:touch;}
 
-/* ---- HEADER ---- */
-#hdr{
-  position:fixed;
-  top:0; left:0; right:0;
-  /* La altura incluye la safe area superior */
-  height:calc(var(--hh) + var(--sat));
-  padding-top:var(--sat);
-  background:rgba(7,15,26,.96);
-  border-bottom:1px solid var(--bdr2);
-  z-index:500;
-  display:-webkit-flex;display:flex;
-  -webkit-align-items:center;align-items:center;
-  -webkit-justify-content:space-between;justify-content:space-between;
-  padding-left:14px;padding-right:14px;
-}
-#hdr-logo{
-  font-weight:800;font-size:13px;
-  color:var(--c);letter-spacing:3px;
-  text-transform:uppercase;
-}
-#btn-tt{
-  background:var(--c12);border:1px solid var(--bdr2);
-  color:var(--c);font-size:11px;letter-spacing:1px;font-weight:700;
-  padding:7px 11px;border-radius:6px;cursor:pointer;
-  white-space:nowrap;text-transform:uppercase;
-}
+/* HEADER */
+#hdr{position:fixed;top:0;left:0;right:0;height:calc(var(--hh) + var(--sat));padding-top:var(--sat);background:rgba(7,15,26,.97);border-bottom:1px solid var(--bdr2);z-index:500;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;padding-left:14px;padding-right:14px;}
+#hdr-logo{font-weight:800;font-size:13px;color:var(--c);letter-spacing:3px;text-transform:uppercase;}
+.hdr-right{display:-webkit-flex;display:flex;gap:8px;-webkit-align-items:center;align-items:center;}
+#sync-status{font-size:10px;letter-spacing:1px;color:var(--t2);}
+#sync-status.ok{color:var(--c);}
+#sync-status.err{color:#ff6b6b;}
+#sync-status.loading{color:var(--gold);}
+#btn-tt{background:var(--c12);border:1px solid var(--bdr2);color:var(--c);font-size:11px;letter-spacing:1px;font-weight:700;padding:7px 11px;border-radius:6px;cursor:pointer;white-space:nowrap;text-transform:uppercase;}
 
-/* ---- NAV INFERIOR ---- */
-#nav{
-  position:fixed;
-  bottom:0;left:0;right:0;
-  height:calc(var(--nh) + var(--sab));
-  padding-bottom:var(--sab);
-  background:rgba(7,15,26,.96);
-  border-top:1px solid var(--bdr2);
-  z-index:500;
-  display:-webkit-flex;display:flex;
-}
-.nb{
-  -webkit-flex:1;flex:1;
-  display:-webkit-flex;display:flex;
-  -webkit-flex-direction:column;flex-direction:column;
-  -webkit-align-items:center;align-items:center;
-  -webkit-justify-content:center;justify-content:center;
-  gap:2px;border:none;background:transparent;
-  color:var(--t2);font-size:9px;letter-spacing:1px;
-  /* min-height táctil Apple */
-  min-height:44px;
-  cursor:pointer;position:relative;
-  text-transform:uppercase;font-weight:600;
-}
+/* NAV */
+#nav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nh) + var(--sab));padding-bottom:var(--sab);background:rgba(7,15,26,.97);border-top:1px solid var(--bdr2);z-index:500;display:-webkit-flex;display:flex;}
+.nb{-webkit-flex:1;flex:1;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;gap:2px;border:none;background:transparent;color:var(--t2);font-size:9px;letter-spacing:1px;min-height:44px;cursor:pointer;position:relative;text-transform:uppercase;font-weight:600;}
 .nb .ni{font-size:20px;line-height:1.2;}
 .nb.on{color:var(--c);}
-.nb.on::before{
-  content:'';position:absolute;top:0;left:20%;right:20%;
-  height:2px;background:var(--c);border-radius:0 0 2px 2px;
-}
+.nb.on::before{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:var(--c);border-radius:0 0 2px 2px;}
 
-/* ---- PÁGINAS ---- */
+/* PÁGINAS */
 .pg{display:none;padding:12px;}
 .pg.on{display:block;}
 
-/* ---- STAT CARDS ---- */
-.sgrid{
-  display:-webkit-flex;display:flex;gap:7px;margin-bottom:14px;
-}
-.sc{
-  -webkit-flex:1;flex:1;
-  background:var(--surf);border:1px solid var(--bdr);
-  border-radius:10px;padding:10px 4px;text-align:center;
-  min-width:0;
-}
+/* LOADING */
+#loadscreen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;gap:16px;}
+#loadscreen h2{color:var(--c);font-size:14px;letter-spacing:4px;text-transform:uppercase;}
+#loadscreen p{color:var(--t2);font-size:11px;letter-spacing:2px;}
+.spinner{width:36px;height:36px;border:3px solid var(--bdr);border-top-color:var(--c);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* STAT CARDS */
+.sgrid{display:-webkit-flex;display:flex;gap:7px;margin-bottom:14px;}
+.sc{-webkit-flex:1;flex:1;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:10px 4px;text-align:center;min-width:0;}
 .sv{font-size:17px;font-weight:800;color:var(--c);}
 .sl{font-size:8px;color:var(--t2);letter-spacing:1px;margin-top:2px;text-transform:uppercase;}
 
-/* ---- RANKING ---- */
-.rrow{
-  background:var(--surf);border:1px solid var(--bdr);
-  border-radius:10px;margin-bottom:8px;overflow:hidden;
-  cursor:pointer;
-}
+/* RANKING */
+.rrow{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;margin-bottom:8px;overflow:hidden;cursor:pointer;}
 .rrow.open{border-color:var(--c25);}
-.rhead{
-  display:-webkit-flex;display:flex;
-  -webkit-align-items:center;align-items:center;
-  padding:10px 12px;gap:10px;
-}
+.rhead{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;padding:10px 12px;gap:10px;}
 .rpos{font-size:16px;min-width:26px;text-align:center;}
 .rbar{width:4px;height:38px;background:var(--bdr);border-radius:2px;position:relative;overflow:hidden;-webkit-flex-shrink:0;flex-shrink:0;}
 .rbarfill{position:absolute;bottom:0;left:0;right:0;background:var(--c40);border-radius:2px;}
@@ -134,34 +67,17 @@ body{
 .rpts{font-size:24px;font-weight:800;color:var(--c);}
 .rchev{font-size:12px;color:var(--t3);-webkit-transition:transform .2s;transition:transform .2s;-webkit-flex-shrink:0;flex-shrink:0;}
 .rrow.open .rchev{-webkit-transform:rotate(180deg);transform:rotate(180deg);color:var(--c);}
-
-/* ---- BREAKDOWN ---- */
 .rdet{display:none;border-top:1px solid var(--bdr);}
 .rrow.open .rdet{display:block;}
-.rdhead{
-  display:-webkit-flex;display:flex;
-  -webkit-justify-content:space-between;justify-content:space-between;
-  -webkit-align-items:center;align-items:center;
-  padding:10px 12px;background:var(--surf2);
-}
+.rdhead{display:-webkit-flex;display:flex;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;align-items:center;padding:10px 12px;background:var(--surf2);}
 .rdtitle{font-size:11px;color:var(--c);letter-spacing:2px;font-weight:700;text-transform:uppercase;}
 .rdtotal{font-size:16px;font-weight:800;color:var(--gold);}
 .rdscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .rdtbl{min-width:540px;width:100%;border-collapse:collapse;font-size:11px;}
-.rdtbl th{
-  background:var(--surf2);color:var(--t2);
-  font-size:9px;letter-spacing:1px;
-  padding:6px 7px;text-align:center;
-  border-bottom:1px solid var(--bdr);
-  white-space:nowrap;text-transform:uppercase;
-}
+.rdtbl th{background:var(--surf2);color:var(--t2);font-size:9px;letter-spacing:1px;padding:6px 7px;text-align:center;border-bottom:1px solid var(--bdr);white-space:nowrap;text-transform:uppercase;}
 .rdtbl td{padding:6px 7px;border-bottom:1px solid var(--bdr);text-align:center;vertical-align:middle;}
 .rdtbl td.tdm{text-align:left;white-space:nowrap;font-size:10px;}
-.rdtbl tr.jsep td{
-  background:var(--surf2);color:var(--t2);
-  font-size:9px;letter-spacing:2px;padding:5px 7px;
-  text-align:left;font-weight:700;text-transform:uppercase;
-}
+.rdtbl tr.jsep td{background:var(--surf2);color:var(--t2);font-size:9px;letter-spacing:2px;padding:5px 7px;text-align:left;font-weight:700;text-transform:uppercase;}
 .chp{display:inline-block;padding:2px 6px;border-radius:4px;font-size:9px;font-weight:700;white-space:nowrap;}
 .chp-g{background:rgba(240,180,41,.18);color:var(--gold);border:1px solid rgba(240,180,41,.4);}
 .chp-c{background:var(--c12);color:var(--c);border:1px solid var(--bdr2);}
@@ -169,209 +85,75 @@ body{
 .chp-d{background:rgba(255,255,255,.02);color:var(--t3);border:1px solid rgba(255,255,255,.06);font-style:italic;}
 .dimchp{opacity:.4;}
 
-/* ---- PICKS ---- */
-.fgrid{
-  display:-webkit-flex;display:flex;
-  -webkit-flex-wrap:wrap;flex-wrap:wrap;
-  gap:8px;margin-bottom:12px;
-}
+/* PICKS */
+.fgrid{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
 .fw{width:100%;}
-.selw{
-  background:var(--surf);border:1px solid var(--bdr2);
-  border-radius:8px;padding:2px 10px;
-  display:-webkit-flex;display:flex;
-  -webkit-align-items:center;align-items:center;gap:6px;
-  -webkit-flex:1;flex:1;min-width:120px;
-}
+.selw{background:var(--surf);border:1px solid var(--bdr2);border-radius:8px;padding:2px 10px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:6px;-webkit-flex:1;flex:1;min-width:120px;}
 .selw label{font-size:9px;color:var(--t2);letter-spacing:1px;white-space:nowrap;text-transform:uppercase;font-weight:700;}
-.selw select{
-  -webkit-flex:1;flex:1;
-  background:transparent;border:none;
-  color:var(--c);font-size:12px;font-weight:700;
-  outline:none;padding:9px 0;
-  -webkit-appearance:none;cursor:pointer;
-  min-width:0;
-}
+.selw select{-webkit-flex:1;flex:1;background:transparent;border:none;color:var(--c);font-size:12px;font-weight:700;outline:none;padding:9px 0;-webkit-appearance:none;cursor:pointer;min-width:0;}
 .selw select option{background:#0a1628;color:#e8f4f0;}
-
 .pkempty{text-align:center;padding:50px 20px;font-size:11px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;}
-.pkitem{
-  background:var(--surf);border:1px solid var(--bdr);
-  border-radius:10px;margin-bottom:8px;padding:10px 12px;
-}
-.pktop{
-  display:-webkit-flex;display:flex;
-  -webkit-align-items:center;align-items:center;gap:8px;
-}
-.pkbadge{
-  font-size:9px;color:var(--t2);background:var(--surf2);
-  border:1px solid var(--bdr);padding:2px 6px;border-radius:4px;
-  white-space:nowrap;text-transform:uppercase;font-weight:700;
-  -webkit-flex-shrink:0;flex-shrink:0;
-}
+.pkitem{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;margin-bottom:8px;padding:10px 12px;}
+.pktop{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:8px;}
+.pkbadge{font-size:9px;color:var(--t2);background:var(--surf2);border:1px solid var(--bdr);padding:2px 6px;border-radius:4px;white-space:nowrap;text-transform:uppercase;font-weight:700;-webkit-flex-shrink:0;flex-shrink:0;}
 .pkteams{-webkit-flex:1;flex:1;font-size:11px;color:var(--text);min-width:0;}
 .pkscore{font-size:19px;font-weight:800;color:var(--c);letter-spacing:2px;-webkit-flex-shrink:0;flex-shrink:0;font-family:'Courier New',monospace;}
 .pksub{font-size:10px;color:var(--t2);margin-top:4px;}
 .gsep{font-size:9px;letter-spacing:3px;color:var(--t3);padding:10px 0 5px;border-bottom:1px solid var(--bdr);margin-bottom:8px;text-transform:uppercase;font-weight:700;}
 
-/* ---- SCORES ---- */
-.fpills{
-  display:-webkit-flex;display:flex;
-  gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;
-  padding-bottom:8px;margin-bottom:12px;
-  scrollbar-width:none;
-}
+/* SCORES */
+.fpills{display:-webkit-flex;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;margin-bottom:12px;scrollbar-width:none;}
 .fpills::-webkit-scrollbar{display:none;}
-.pill{
-  -webkit-flex-shrink:0;flex-shrink:0;
-  padding:7px 13px;border-radius:20px;
-  border:1px solid var(--bdr2);background:transparent;
-  color:var(--t2);font-size:10px;letter-spacing:1px;
-  cursor:pointer;white-space:nowrap;
-  font-weight:700;text-transform:uppercase;
-  /* min táctil */
-  min-height:36px;
-}
+.pill{-webkit-flex-shrink:0;flex-shrink:0;padding:7px 13px;border-radius:20px;border:1px solid var(--bdr2);background:transparent;color:var(--t2);font-size:10px;letter-spacing:1px;cursor:pointer;white-space:nowrap;font-weight:700;text-transform:uppercase;min-height:36px;}
 .pill.on{background:var(--c12);color:var(--c);border-color:var(--c40);}
-
-.scitem{
-  background:var(--surf);border:1px solid var(--bdr);
-  border-radius:10px;margin-bottom:8px;padding:11px 12px;
-}
-.sctop{
-  display:-webkit-flex;display:flex;
-  -webkit-align-items:center;align-items:center;
-  gap:8px;margin-bottom:9px;
-}
-.scgrp{
-  font-size:9px;color:var(--t2);background:var(--surf2);
-  border:1px solid var(--bdr);padding:2px 7px;border-radius:4px;
-  text-transform:uppercase;font-weight:700;
-}
+.scitem{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;margin-bottom:8px;padding:11px 12px;}
+.sctop{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:8px;margin-bottom:9px;}
+.scgrp{font-size:9px;color:var(--t2);background:var(--surf2);border:1px solid var(--bdr);padding:2px 7px;border-radius:4px;text-transform:uppercase;font-weight:700;}
 .dot-ok{width:8px;height:8px;border-radius:50%;background:var(--c);-webkit-flex-shrink:0;flex-shrink:0;}
 .dot-pend{width:8px;height:8px;border-radius:50%;background:var(--t3);-webkit-flex-shrink:0;flex-shrink:0;}
 .scdate{font-size:10px;color:var(--t2);}
-.scrow{
-  display:-webkit-flex;display:flex;
-  -webkit-align-items:center;align-items:center;gap:7px;
-}
-.scteam{
-  -webkit-flex:1;flex:1;
-  font-size:11px;color:var(--text);
-  text-align:right;min-width:0;
-}
+.scrow{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:7px;}
+.scteam{-webkit-flex:1;flex:1;font-size:11px;color:var(--text);text-align:right;min-width:0;}
 .scteam.r{text-align:left;}
 .scdash{font-size:16px;color:var(--t3);font-weight:700;-webkit-flex-shrink:0;flex-shrink:0;}
-.scinp{
-  width:46px;height:46px;
-  background:var(--surf2);border:1px solid var(--bdr2);
-  border-radius:8px;color:var(--c);
-  font-size:22px;font-weight:800;
-  text-align:center;
-  font-family:'Courier New',monospace;
-  outline:none;
-  /* evitar zoom en iOS: font-size ya es >=16 */
-}
+.scinp{width:46px;height:46px;background:var(--surf2);border:1px solid var(--bdr2);border-radius:8px;color:var(--c);font-size:22px;font-weight:800;text-align:center;font-family:'Courier New',monospace;outline:none;}
 .scinp:focus{border-color:var(--c);}
-.scsave{
-  margin-top:9px;width:100%;padding:11px;
-  background:var(--c12);border:1px solid var(--bdr2);
-  border-radius:8px;color:var(--c);
-  font-size:12px;letter-spacing:2px;cursor:pointer;
-  font-weight:700;text-transform:uppercase;
-  min-height:44px;
-}
+.scsave{margin-top:9px;width:100%;padding:11px;background:var(--c12);border:1px solid var(--bdr2);border-radius:8px;color:var(--c);font-size:12px;letter-spacing:2px;cursor:pointer;font-weight:700;text-transform:uppercase;min-height:44px;}
+.scsave:disabled{opacity:.5;cursor:not-allowed;}
 .scok{font-size:11px;color:var(--c);text-align:center;margin-top:6px;letter-spacing:1px;display:none;font-weight:700;}
+.scerr{font-size:11px;color:#ff6b6b;text-align:center;margin-top:6px;letter-spacing:1px;display:none;font-weight:700;}
 
-/* ---- CONFIG ---- */
-.cfgsec{
-  background:var(--surf);border:1px solid var(--bdr);
-  border-radius:10px;padding:14px;margin-bottom:12px;
-}
+/* CONFIG */
+.cfgsec{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px;margin-bottom:12px;}
 .cfgtitle{font-size:11px;color:var(--c);letter-spacing:2px;margin-bottom:12px;font-weight:700;text-transform:uppercase;}
 .cfgrow{display:-webkit-flex;display:flex;gap:8px;margin-bottom:8px;}
-.cfginp{
-  -webkit-flex:1;flex:1;
-  background:var(--surf2);border:1px solid var(--bdr2);
-  border-radius:8px;color:var(--text);
-  font-size:16px;padding:10px 12px;outline:none;
-  min-height:44px;
-}
+.cfginp{-webkit-flex:1;flex:1;background:var(--surf2);border:1px solid var(--bdr2);border-radius:8px;color:var(--text);font-size:16px;padding:10px 12px;outline:none;min-height:44px;}
 .cfginp:focus{border-color:var(--c);}
-.cfgbtn{
-  padding:10px 14px;background:var(--c12);
-  border:1px solid var(--bdr2);border-radius:8px;
-  color:var(--c);font-size:11px;letter-spacing:1px;
-  cursor:pointer;white-space:nowrap;font-weight:700;
-  text-transform:uppercase;min-height:44px;
-}
+.cfgbtn{padding:10px 14px;background:var(--c12);border:1px solid var(--bdr2);border-radius:8px;color:var(--c);font-size:11px;letter-spacing:1px;cursor:pointer;white-space:nowrap;font-weight:700;text-transform:uppercase;min-height:44px;}
 .taglist{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:6px;}
-.tag{
-  display:-webkit-flex;display:flex;
-  -webkit-align-items:center;align-items:center;
-  gap:4px;background:var(--c12);border:1px solid var(--bdr2);
-  border-radius:6px;padding:5px 10px;font-size:12px;color:var(--c);
-  font-weight:600;
-}
+.tag{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:4px;background:var(--c12);border:1px solid var(--bdr2);border-radius:6px;padding:5px 10px;font-size:12px;color:var(--c);font-weight:600;}
 .tagx{background:none;border:none;color:var(--t2);cursor:pointer;font-size:16px;padding:0 2px;min-height:0;}
-
-.pchips{
-  display:-webkit-flex;display:flex;
-  gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;
-  margin-bottom:10px;padding-bottom:4px;scrollbar-width:none;
-}
+.pchips{display:-webkit-flex;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:10px;padding-bottom:4px;scrollbar-width:none;}
 .pchips::-webkit-scrollbar{display:none;}
-.pchip{
-  -webkit-flex-shrink:0;flex-shrink:0;
-  padding:7px 14px;border-radius:20px;
-  border:1px solid var(--bdr2);background:transparent;
-  color:var(--t2);font-size:10px;letter-spacing:1px;
-  cursor:pointer;font-weight:700;text-transform:uppercase;
-  min-height:36px;
-}
+.pchip{-webkit-flex-shrink:0;flex-shrink:0;padding:7px 14px;border-radius:20px;border:1px solid var(--bdr2);background:transparent;color:var(--t2);font-size:10px;letter-spacing:1px;cursor:pointer;font-weight:700;text-transform:uppercase;min-height:36px;}
 .pchip.on{background:var(--c12);color:var(--c);border-color:var(--c40);}
-
-.pgfilt{
-  display:-webkit-flex;display:flex;
-  gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;
-  margin-bottom:10px;scrollbar-width:none;
-}
+.pgfilt{display:-webkit-flex;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:10px;scrollbar-width:none;}
 .pgfilt::-webkit-scrollbar{display:none;}
-
 .prgrp{margin-bottom:12px;}
 .prgtitle{font-size:9px;color:var(--t2);letter-spacing:2px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--bdr);text-transform:uppercase;font-weight:700;}
-.prrow{
-  display:-webkit-flex;display:flex;
-  -webkit-align-items:center;align-items:center;
-  gap:6px;margin-bottom:8px;
-}
+.prrow{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:6px;margin-bottom:8px;}
 .prteam{font-size:11px;color:var(--text);-webkit-flex:1;flex:1;min-width:0;}
 .prteam.r{text-align:right;}
-.prinp{
-  width:38px;height:38px;
-  background:var(--surf2);border:1px solid var(--bdr);
-  border-radius:6px;color:var(--c);
-  font-size:16px;font-weight:800;
-  text-align:center;font-family:'Courier New',monospace;
-  outline:none;
-}
+.prinp{width:38px;height:38px;background:var(--surf2);border:1px solid var(--bdr);border-radius:6px;color:var(--c);font-size:16px;font-weight:800;text-align:center;font-family:'Courier New',monospace;outline:none;}
 .prinp:focus{border-color:var(--c);}
 .prsep{font-size:14px;color:var(--t3);font-weight:700;-webkit-flex-shrink:0;flex-shrink:0;}
-.savebtn{
-  width:100%;padding:14px;
-  background:rgba(0,255,200,.14);border:1px solid var(--c40);
-  border-radius:10px;color:var(--c);
-  font-size:12px;letter-spacing:2px;cursor:pointer;
-  margin-top:8px;font-weight:700;text-transform:uppercase;
-  min-height:44px;
-}
+.savebtn{width:100%;padding:14px;background:rgba(0,255,200,.14);border:1px solid var(--c40);border-radius:10px;color:var(--c);font-size:12px;letter-spacing:2px;cursor:pointer;margin-top:8px;font-weight:700;text-transform:uppercase;min-height:44px;}
+.savebtn:disabled{opacity:.5;cursor:not-allowed;}
+.info-box{background:var(--surf2);border:1px solid var(--bdr);border-radius:8px;padding:12px;margin-bottom:12px;font-size:11px;color:var(--t2);line-height:1.7;}
+.info-box strong{color:var(--c);}
 
-/* ---- TELETEXTO ---- */
-body.tt,body.tt *{
-  font-family:'Courier New',Courier,monospace !important;
-  border-radius:0 !important;
-  letter-spacing:0 !important;
-}
+/* TELETEXTO */
+body.tt,body.tt *{font-family:'Courier New',Courier,monospace !important;border-radius:0 !important;letter-spacing:0 !important;}
 body.tt{background:#000 !important;color:#ffff00 !important;}
 body.tt #hdr{background:#0000aa !important;border-bottom:2px solid #ffff00 !important;}
 body.tt #hdr-logo{color:#00ffff !important;}
@@ -388,7 +170,6 @@ body.tt .rrow.open{border-color:#00ffff !important;}
 body.tt .rpts{color:#ffff00 !important;}
 body.tt .rname{color:#00ffff !important;}
 body.tt .rsub{color:#00ff00 !important;}
-body.tt .rdet{border-top:2px solid #555500 !important;}
 body.tt .rdhead{background:#000033 !important;}
 body.tt .rdtitle{color:#00ffff !important;}
 body.tt .rdtotal{color:#ffff00 !important;}
@@ -401,11 +182,9 @@ body.tt .chp-0{background:#111 !important;color:#555 !important;border:1px solid
 body.tt .pkitem{background:#000066 !important;border:2px solid #00ffff !important;}
 body.tt .pkscore{color:#ffff00 !important;}
 body.tt .gsep{color:#00ff00 !important;border-color:#333300 !important;}
-body.tt .pill.on,.body.tt .pchip.on{background:#003300 !important;color:#00ff00 !important;border-color:#00ff00 !important;}
 body.tt .scitem{background:#000066 !important;border:2px solid #00ffff !important;}
 body.tt .scinp{background:#000033 !important;border:2px solid #ffff00 !important;color:#ffff00 !important;}
 body.tt .scsave{background:#003300 !important;border:2px solid #00ff00 !important;color:#00ff00 !important;}
-body.tt .dot-ok{background:#00ff00 !important;}
 body.tt .cfgsec{background:#000066 !important;border:2px solid #00ffff !important;}
 body.tt .cfginp{background:#000033 !important;border:2px solid #ffff00 !important;color:#ffff00 !important;}
 body.tt .cfgbtn{background:#003300 !important;border:2px solid #00ff00 !important;color:#00ff00 !important;}
@@ -417,19 +196,31 @@ body.tt .selw{background:#000088 !important;border:2px solid #ffff00 !important;
 body.tt .selw select{color:#ffff00 !important;}
 body.tt .rbarfill{background:#ffff00 !important;}
 body.tt .cfgtitle{color:#00ffff !important;}
+body.tt .dot-ok{background:#00ff00 !important;}
+body.tt .pill.on{background:#003300 !important;color:#00ff00 !important;border-color:#00ff00 !important;}
 body.tt .pkbadge{background:#000033 !important;border-color:#00ffff !important;color:#00ffff !important;}
 body.tt .scgrp{background:#000033 !important;border-color:#00ffff !important;color:#00ffff !important;}
+body.tt #sync-status.ok{color:#00ff00 !important;}
+body.tt #sync-status.loading{color:#ffff00 !important;}
+body.tt #sync-status.err{color:#ff4400 !important;}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<div id="loadscreen">
+  <div class="spinner"></div>
+  <h2>⬡ WC·2026·PORRA</h2>
+  <p id="load-msg">Conectando...</p>
+</div>
+
 <header id="hdr">
   <div id="hdr-logo">⬡ WC·2026·PORRA</div>
-  <button id="btn-tt" onclick="toggleTT()">📺 TELETEXTO</button>
+  <div class="hdr-right">
+    <span id="sync-status">●</span>
+    <button id="btn-tt" onclick="toggleTT()">📺 TELETEXTO</button>
+  </div>
 </header>
 
-<!-- PÁGINAS -->
 <div id="pg-ranking" class="pg on">
   <div class="sgrid" id="statcards"></div>
   <div id="ranklist"></div>
@@ -466,6 +257,9 @@ body.tt .scgrp{background:#000033 !important;border-color:#00ffff !important;col
 </div>
 
 <div id="pg-scores" class="pg">
+  <div class="info-box">
+    <strong>Solo tú ves esta pestaña.</strong> Los resultados que guardes aquí se sincronizan con la nube y todos los participantes verán el ranking actualizado.
+  </div>
   <div class="fpills" id="scorepills"></div>
   <div id="scorelist"></div>
 </div>
@@ -473,6 +267,7 @@ body.tt .scgrp{background:#000033 !important;border-color:#00ffff !important;col
 <div id="pg-config" class="pg">
   <div class="cfgsec">
     <div class="cfgtitle">▸ Participantes</div>
+    <div class="info-box">Los participantes se guardan en la nube. <strong>Todos comparten la misma lista.</strong></div>
     <div class="cfgrow">
       <input class="cfginp" id="cfg-np" placeholder="Nombre participante" type="text" autocorrect="off" autocapitalize="words">
       <button class="cfgbtn" onclick="addPart()">+ Añadir</button>
@@ -484,11 +279,10 @@ body.tt .scgrp{background:#000033 !important;border-color:#00ffff !important;col
     <div class="pchips" id="cfgpartchips"></div>
     <div class="pgfilt" id="cfggrppills"></div>
     <div id="cfgform"></div>
-    <button class="savebtn" onclick="saveAllPronos()">▸ Guardar Pronósticos</button>
+    <button class="savebtn" id="savepronobtn" onclick="saveAllPronos()">▸ Guardar Pronósticos</button>
   </div>
 </div>
 
-<!-- NAV INFERIOR -->
 <nav id="nav">
   <button class="nb on" id="nb-ranking" onclick="goPage('ranking')">
     <span class="ni">🏆</span><span>RANKING</span>
@@ -505,9 +299,17 @@ body.tt .scgrp{background:#000033 !important;border-color:#00ffff !important;col
 </nav>
 
 <script>
-/* ===================================================
-   DATOS: 72 PARTIDOS
-=================================================== */
+/* =====================================================
+   JSONBIN CONFIG
+===================================================== */
+var BIN_ID = '6a292459f5f4af5e29d6e3dd';
+var API_KEY = '6a29248df5f4af5e29d6e4bc';
+var X_KEY = '6a29248df5f4af5e29d6e4bc';
+var BIN_URL = 'https://api.jsonbin.io/v3/b/6a292459f5f4af5e29d6e3dd';
+
+/* =====================================================
+   PARTIDOS
+===================================================== */
 var P = [
   {id:'a1',g:'A',j:1,f:'11 Jun',l:{n:'México',e:'🇲🇽'},v:{n:'Sudáfrica',e:'🇿🇦'}},
   {id:'a2',g:'A',j:1,f:'12 Jun',l:{n:'Corea del Sur',e:'🇰🇷'},v:{n:'Chequia',e:'🇨🇿'}},
@@ -583,22 +385,24 @@ var P = [
   {id:'l6',g:'L',j:3,f:'27 Jun',l:{n:'Panamá',e:'🇵🇦'},v:{n:'Inglaterra',e:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'}}
 ];
 
-/* ===================================================
-   DEMO DATA
-=================================================== */
-var DPARTS = ['Carlos','Ana','Miguel','Lucía','Javi'];
-var DREAL = {a1:'2-0',a2:'1-1',b1:'2-1',b2:'0-1',c1:'0-2',c2:'3-1',d1:'1-0',d2:'1-2',e1:'1-1',e2:'4-0',f1:'2-1',f2:'1-0',g1:'0-1',g2:'2-0',h1:'1-2',h2:'3-0',i1:'2-1',i2:'1-0',j1:'2-0',j2:'1-1',k1:'2-1',k2:'0-1',l1:'2-0',l2:'1-1'};
-var DPRONOS = {
-  Carlos:{a1:'2-0',a2:'1-1',b1:'2-1',b2:'0-1',c1:'0-2',c2:'3-1',d1:'2-0',d2:'1-2',e1:'1-1',e2:'4-0',f1:'2-1',f2:'1-0',g1:'0-1',g2:'3-0',h1:'1-2',h2:'3-0',i1:'2-1',i2:'1-0',j1:'2-0',j2:'1-1',k1:'2-1',k2:'0-1',l1:'2-0',l2:'1-1',a3:'2-1',a4:'0-1',a5:'1-0',a6:'1-1',b3:'2-0',b4:'1-1',b5:'0-2',b6:'1-0',c3:'1-0',c4:'0-2',c5:'2-0',c6:'3-0',d3:'2-0',d4:'1-1',d5:'0-1',d6:'1-2',e3:'0-2',e4:'0-1',e5:'1-3',e6:'0-2',f3:'1-0',f4:'0-1',f5:'1-1',f6:'0-2',g3:'0-2',g4:'1-0',g5:'0-3',g6:'1-0',h3:'1-3',h4:'1-1',h5:'0-2',h6:'0-1',i3:'2-0',i4:'0-1',i5:'1-0',i6:'0-2',j3:'2-0',j4:'1-1',j5:'0-1',j6:'0-3',k3:'3-0',k4:'0-1',k5:'2-1',k6:'0-2',l3:'2-0',l4:'0-1',l5:'1-0',l6:'2-0'},
-  Ana:{a1:'2-1',a2:'0-1',a3:'1-1',a4:'1-0',a5:'2-0',a6:'0-1',b1:'1-1',b2:'1-0',b3:'2-1',b4:'0-0',b5:'1-0',b6:'2-1',c1:'1-2',c2:'2-1',c3:'0-1',c4:'0-1',c5:'1-0',c6:'3-1',d1:'1-0',d2:'2-1',d3:'2-1',d4:'0-1',d5:'1-0',d6:'0-2',e1:'0-0',e2:'3-0',e3:'1-2',e4:'1-0',e5:'0-2',e6:'1-0',f1:'1-1',f2:'2-0',f3:'2-0',f4:'1-1',f5:'0-1',f6:'1-2',g1:'1-0',g2:'1-0',g3:'0-1',g4:'0-0',g5:'1-2',g6:'2-0',h1:'0-1',h2:'2-0',h3:'0-3',h4:'0-2',h5:'1-2',h6:'1-0',i1:'1-1',i2:'0-0',i3:'2-1',i4:'1-1',i5:'0-1',i6:'1-2',j1:'1-0',j2:'0-1',j3:'3-0',j4:'0-0',j5:'1-0',j6:'0-2',k1:'1-1',k2:'1-0',k3:'2-0',k4:'1-1',k5:'1-0',k6:'0-3',l1:'1-1',l2:'2-0',l3:'3-0',l4:'0-1',l5:'0-1',l6:'1-0'},
-  Miguel:{a1:'3-0',a2:'1-0',a3:'2-0',a4:'0-2',a5:'0-0',a6:'2-1',b1:'3-1',b2:'0-0',b3:'1-0',b4:'2-1',b5:'1-1',b6:'0-1',c1:'0-1',c2:'4-0',c3:'1-1',c4:'0-3',c5:'0-2',c6:'2-0',d1:'1-0',d2:'0-1',d3:'1-0',d4:'2-0',d5:'1-1',d6:'1-1',e1:'2-0',e2:'5-0',e3:'0-1',e4:'0-0',e5:'1-2',e6:'0-1',f1:'3-1',f2:'0-0',f3:'1-0',f4:'0-1',f5:'2-0',f6:'0-2',g1:'0-2',g2:'3-0',g3:'1-2',g4:'2-1',g5:'0-2',g6:'0-0',h1:'2-1',h2:'4-0',h3:'0-2',h4:'1-0',h5:'0-3',h6:'0-2',i1:'3-0',i2:'2-0',i3:'2-0',i4:'0-2',i5:'0-1',i6:'0-3',j1:'3-0',j2:'1-0',j3:'2-0',j4:'0-1',j5:'0-2',j6:'0-4',k1:'3-0',k2:'0-2',k3:'2-0',k4:'0-2',k5:'3-0',k6:'0-1',l1:'3-0',l2:'0-1',l3:'2-0',l4:'0-2',l5:'1-0',l6:'1-0'},
-  Lucía:{a1:'1-1',a2:'2-0',a3:'1-0',a4:'1-1',a5:'0-1',a6:'1-2',b1:'2-0',b2:'1-1',b3:'0-1',b4:'1-0',b5:'2-1',b6:'1-1',c1:'0-3',c2:'2-2',c3:'0-2',c4:'1-1',c5:'1-1',c6:'2-0',d1:'0-0',d2:'1-1',d3:'1-1',d4:'1-2',d5:'2-0',d6:'0-0',e1:'1-1',e2:'3-1',e3:'1-1',e4:'1-1',e5:'0-1',e6:'1-1',f1:'2-0',f2:'1-1',f3:'0-1',f4:'1-0',f5:'1-0',f6:'1-1',g1:'0-1',g2:'1-1',g3:'1-1',g4:'1-0',g5:'1-2',g6:'1-1',h1:'1-1',h2:'2-1',h3:'0-2',h4:'1-1',h5:'1-1',h6:'0-1',i1:'2-0',i2:'1-1',i3:'1-0',i4:'1-1',i5:'1-0',i6:'1-1',j1:'1-0',j2:'1-1',j3:'1-0',j4:'1-1',j5:'1-0',j6:'0-1',k1:'1-0',k2:'1-1',k3:'1-0',k4:'1-1',k5:'1-0',k6:'0-1',l1:'1-0',l2:'1-1',l3:'1-0',l4:'1-1',l5:'1-0',l6:'0-1'},
-  Javi:{a1:'1-0',a2:'0-0',a3:'1-0',a4:'2-1',a5:'1-2',a6:'0-1',b1:'1-0',b2:'0-1',b3:'0-0',b4:'1-0',b5:'1-0',b6:'0-1',c1:'0-1',c2:'2-0',c3:'2-0',c4:'0-1',c5:'1-0',c6:'2-1',d1:'1-0',d2:'1-0',d3:'1-0',d4:'1-0',d5:'0-0',d6:'1-1',e1:'0-1',e2:'3-0',e3:'0-1',e4:'0-1',e5:'1-1',e6:'0-1',f1:'1-0',f2:'1-0',f3:'1-0',f4:'0-0',f5:'0-1',f6:'0-1',g1:'0-1',g2:'1-0',g3:'0-1',g4:'0-0',g5:'0-1',g6:'0-1',h1:'1-0',h2:'2-0',h3:'0-2',h4:'0-1',h5:'0-1',h6:'0-1',i1:'2-0',i2:'1-0',i3:'1-0',i4:'0-0',i5:'0-0',i6:'0-1',j1:'1-0',j2:'1-0',j3:'2-1',j4:'0-1',j5:'0-0',j6:'0-2',k1:'2-0',k2:'0-0',k3:'1-0',k4:'0-1',k5:'2-1',k6:'0-1',l1:'1-0',l2:'2-1',l3:'1-0',l4:'0-1',l5:'1-1',l6:'0-1'}
+/* =====================================================
+   DATOS DEMO (solo para primera carga si el bin está vacío)
+===================================================== */
+var DEMO = {
+  participantes: ['Carlos','Ana','Miguel','Lucía','Javi'],
+  resultados: {a1:'2-0',a2:'1-1',b1:'2-1',b2:'0-1',c1:'0-2',c2:'3-1',d1:'1-0',d2:'1-2',e1:'1-1',e2:'4-0',f1:'2-1',f2:'1-0',g1:'0-1',g2:'2-0',h1:'1-2',h2:'3-0',i1:'2-1',i2:'1-0',j1:'2-0',j2:'1-1',k1:'2-1',k2:'0-1',l1:'2-0',l2:'1-1'},
+  pronos: {
+    Carlos:{a1:'2-0',a2:'1-1',b1:'2-1',b2:'0-1',c1:'0-2',c2:'3-1',d1:'2-0',d2:'1-2',e1:'1-1',e2:'4-0',f1:'2-1',f2:'1-0',g1:'0-1',g2:'3-0',h1:'1-2',h2:'3-0',i1:'2-1',i2:'1-0',j1:'2-0',j2:'1-1',k1:'2-1',k2:'0-1',l1:'2-0',l2:'1-1',a3:'2-1',a4:'0-1',a5:'1-0',a6:'1-1',b3:'2-0',b4:'1-1',b5:'0-2',b6:'1-0',c3:'1-0',c4:'0-2',c5:'2-0',c6:'3-0',d3:'2-0',d4:'1-1',d5:'0-1',d6:'1-2',e3:'0-2',e4:'0-1',e5:'1-3',e6:'0-2',f3:'1-0',f4:'0-1',f5:'1-1',f6:'0-2',g3:'0-2',g4:'1-0',g5:'0-3',g6:'1-0',h3:'1-3',h4:'1-1',h5:'0-2',h6:'0-1',i3:'2-0',i4:'0-1',i5:'1-0',i6:'0-2',j3:'2-0',j4:'1-1',j5:'0-1',j6:'0-3',k3:'3-0',k4:'0-1',k5:'2-1',k6:'0-2',l3:'2-0',l4:'0-1',l5:'1-0',l6:'2-0'},
+    Ana:{a1:'2-1',a2:'0-1',a3:'1-1',a4:'1-0',a5:'2-0',a6:'0-1',b1:'1-1',b2:'1-0',b3:'2-1',b4:'0-0',b5:'1-0',b6:'2-1',c1:'1-2',c2:'2-1',c3:'0-1',c4:'0-1',c5:'1-0',c6:'3-1',d1:'1-0',d2:'2-1',d3:'2-1',d4:'0-1',d5:'1-0',d6:'0-2',e1:'0-0',e2:'3-0',e3:'1-2',e4:'1-0',e5:'0-2',e6:'1-0',f1:'1-1',f2:'2-0',f3:'2-0',f4:'1-1',f5:'0-1',f6:'1-2',g1:'1-0',g2:'1-0',g3:'0-1',g4:'0-0',g5:'1-2',g6:'2-0',h1:'0-1',h2:'2-0',h3:'0-3',h4:'0-2',h5:'1-2',h6:'1-0',i1:'1-1',i2:'0-0',i3:'2-1',i4:'1-1',i5:'0-1',i6:'1-2',j1:'1-0',j2:'0-1',j3:'3-0',j4:'0-0',j5:'1-0',j6:'0-2',k1:'1-1',k2:'1-0',k3:'2-0',k4:'1-1',k5:'1-0',k6:'0-3',l1:'1-1',l2:'2-0',l3:'3-0',l4:'0-1',l5:'0-1',l6:'1-0'},
+    Miguel:{a1:'3-0',a2:'1-0',a3:'2-0',a4:'0-2',a5:'0-0',a6:'2-1',b1:'3-1',b2:'0-0',b3:'1-0',b4:'2-1',b5:'1-1',b6:'0-1',c1:'0-1',c2:'4-0',c3:'1-1',c4:'0-3',c5:'0-2',c6:'2-0',d1:'1-0',d2:'0-1',d3:'1-0',d4:'2-0',d5:'1-1',d6:'1-1',e1:'2-0',e2:'5-0',e3:'0-1',e4:'0-0',e5:'1-2',e6:'0-1',f1:'3-1',f2:'0-0',f3:'1-0',f4:'0-1',f5:'2-0',f6:'0-2',g1:'0-2',g2:'3-0',g3:'1-2',g4:'2-1',g5:'0-2',g6:'0-0',h1:'2-1',h2:'4-0',h3:'0-2',h4:'1-0',h5:'0-3',h6:'0-2',i1:'3-0',i2:'2-0',i3:'2-0',i4:'0-2',i5:'0-1',i6:'0-3',j1:'3-0',j2:'1-0',j3:'2-0',j4:'0-1',j5:'0-2',j6:'0-4',k1:'3-0',k2:'0-2',k3:'2-0',k4:'0-2',k5:'3-0',k6:'0-1',l1:'3-0',l2:'0-1',l3:'2-0',l4:'0-2',l5:'1-0',l6:'1-0'},
+    Lucía:{a1:'1-1',a2:'2-0',a3:'1-0',a4:'1-1',a5:'0-1',a6:'1-2',b1:'2-0',b2:'1-1',b3:'0-1',b4:'1-0',b5:'2-1',b6:'1-1',c1:'0-3',c2:'2-2',c3:'0-2',c4:'1-1',c5:'1-1',c6:'2-0',d1:'0-0',d2:'1-1',d3:'1-1',d4:'1-2',d5:'2-0',d6:'0-0',e1:'1-1',e2:'3-1',e3:'1-1',e4:'1-1',e5:'0-1',e6:'1-1',f1:'2-0',f2:'1-1',f3:'0-1',f4:'1-0',f5:'1-0',f6:'1-1',g1:'0-1',g2:'1-1',g3:'1-1',g4:'1-0',g5:'1-2',g6:'1-1',h1:'1-1',h2:'2-1',h3:'0-2',h4:'1-1',h5:'1-1',h6:'0-1',i1:'2-0',i2:'1-1',i3:'1-0',i4:'1-1',i5:'1-0',i6:'1-1',j1:'1-0',j2:'1-1',j3:'1-0',j4:'1-1',j5:'1-0',j6:'0-1',k1:'1-0',k2:'1-1',k3:'1-0',k4:'1-1',k5:'1-0',k6:'0-1',l1:'1-0',l2:'1-1',l3:'1-0',l4:'1-1',l5:'1-0',l6:'0-1'},
+    Javi:{a1:'1-0',a2:'0-0',a3:'1-0',a4:'2-1',a5:'1-2',a6:'0-1',b1:'1-0',b2:'0-1',b3:'0-0',b4:'1-0',b5:'1-0',b6:'0-1',c1:'0-1',c2:'2-0',c3:'2-0',c4:'0-1',c5:'1-0',c6:'2-1',d1:'1-0',d2:'1-0',d3:'1-0',d4:'1-0',d5:'0-0',d6:'1-1',e1:'0-1',e2:'3-0',e3:'0-1',e4:'0-1',e5:'1-1',e6:'0-1',f1:'1-0',f2:'1-0',f3:'1-0',f4:'0-0',f5:'0-1',f6:'0-1',g1:'0-1',g2:'1-0',g3:'0-1',g4:'0-0',g5:'0-1',g6:'0-1',h1:'1-0',h2:'2-0',h3:'0-2',h4:'0-1',h5:'0-1',h6:'0-1',i1:'2-0',i2:'1-0',i3:'1-0',i4:'0-0',i5:'0-0',i6:'0-1',j1:'1-0',j2:'1-0',j3:'2-1',j4:'0-1',j5:'0-0',j6:'0-2',k1:'2-0',k2:'0-0',k3:'1-0',k4:'0-1',k5:'2-1',k6:'0-1',l1:'1-0',l2:'2-1',l3:'1-0',l4:'0-1',l5:'1-1',l6:'0-1'}
+  }
 };
 
-/* ===================================================
-   ESTADO
-=================================================== */
+/* =====================================================
+   ESTADO GLOBAL
+===================================================== */
 var parts = [];
 var pronos = {};
 var reales = {};
@@ -607,393 +411,477 @@ var curPage = 'ranking';
 var cfgPart = '';
 var cfgGrp = '';
 var scGrp = '';
+var saving = false;
 
-/* ===================================================
-   STORAGE — sin crash si está bloqueado (iOS file://)
-=================================================== */
-var _store = (function(){
-  var mem = {};
-  var ok = false;
-  try { localStorage.setItem('_t','1'); localStorage.removeItem('_t'); ok=true; } catch(e){}
-  return {
-    get: function(k){ try{ return ok ? localStorage.getItem(k) : (mem[k]||null); }catch(e){ return mem[k]||null; } },
-    set: function(k,v){ try{ if(ok) localStorage.setItem(k,v); else mem[k]=v; }catch(e){ mem[k]=v; } },
-    del: function(k){ try{ if(ok) localStorage.removeItem(k); else delete mem[k]; }catch(e){ delete mem[k]; } }
+/* =====================================================
+   JSONBIN API
+===================================================== */
+function setSyncStatus(state, text) {
+  var el = document.getElementById('sync-status');
+  el.className = state;
+  el.textContent = text || (state === 'ok' ? '● Sync' : state === 'loading' ? '● ...' : '● Error');
+}
+
+function binRead(cb) {
+  setSyncStatus('loading', '● ...');
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', BIN_URL + '/latest', true);
+  xhr.setRequestHeader('X-Master-Key', X_KEY);
+  xhr.setRequestHeader('X-Bin-Meta', 'false');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      try {
+        var data = JSON.parse(xhr.responseText);
+        setSyncStatus('ok', '● OK');
+        cb(null, data);
+      } catch(e) {
+        setSyncStatus('err', '● Error');
+        cb(e, null);
+      }
+    } else {
+      setSyncStatus('err', '● ' + xhr.status);
+      cb(new Error('HTTP ' + xhr.status), null);
+    }
   };
-})();
-
-function saveData(){
-  _store.set('pp', JSON.stringify(parts));
-  _store.set('pr', JSON.stringify(pronos));
-  _store.set('re', JSON.stringify(reales));
+  xhr.onerror = function() {
+    setSyncStatus('err', '● Sin red');
+    cb(new Error('network'), null);
+  };
+  xhr.send();
 }
 
-function loadData(){
-  // Migración de claves antiguas
-  var oldKeys=[['participants','pp'],['porraParticipants','pp'],['picks','pr'],['porraPicks','pr'],['scores','re'],['porraScores','re']];
-  for(var i=0;i<oldKeys.length;i++){
-    var v=_store.get(oldKeys[i][0]);
-    if(v && !_store.get(oldKeys[i][1])){ _store.set(oldKeys[i][1],v); _store.del(oldKeys[i][0]); }
-  }
-  try{ parts = JSON.parse(_store.get('pp')||'[]'); }catch(e){ parts=[]; }
-  try{ pronos = JSON.parse(_store.get('pr')||'{}'); }catch(e){ pronos={}; }
-  try{ reales = JSON.parse(_store.get('re')||'{}'); }catch(e){ reales={}; }
-  if(!parts||!parts.length){
-    parts = DPARTS.slice();
-    pronos = {};
-    for(var k in DPRONOS){ pronos[k] = {}; for(var m in DPRONOS[k]) pronos[k][m]=DPRONOS[k][m]; }
-    reales = {};
-    for(var r in DREAL) reales[r]=DREAL[r];
-    saveData();
-  }
+function binWrite(data, cb) {
+  setSyncStatus('loading', '● ...');
+  var xhr = new XMLHttpRequest();
+  xhr.open('PUT', BIN_URL, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('X-Master-Key', X_KEY);
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      setSyncStatus('ok', '● Guardado');
+      if (cb) cb(null);
+    } else {
+      setSyncStatus('err', '● Error ' + xhr.status);
+      if (cb) cb(new Error('HTTP ' + xhr.status));
+    }
+  };
+  xhr.onerror = function() {
+    setSyncStatus('err', '● Sin red');
+    if (cb) cb(new Error('network'));
+  };
+  xhr.send(JSON.stringify(data));
 }
 
-/* ===================================================
+function getCurrentData() {
+  return { participantes: parts, pronos: pronos, resultados: reales };
+}
+
+/* =====================================================
    PUNTUACIÓN
-=================================================== */
-function ps(s){
-  if(!s) return null;
-  var p=s.split('-');
-  if(p.length!==2) return null;
-  var a=parseInt(p[0],10),b=parseInt(p[1],10);
-  if(isNaN(a)||isNaN(b)) return null;
-  return {l:a,v:b};
+===================================================== */
+function ps(s) {
+  if (!s) return null;
+  var p = s.split('-');
+  if (p.length !== 2) return null;
+  var a = parseInt(p[0], 10), b = parseInt(p[1], 10);
+  if (isNaN(a) || isNaN(b)) return null;
+  return {l: a, v: b};
 }
-function r12x(l,v){ return l>v?'1':l<v?'2':'X'; }
-function calcPts(pick,real){
-  var p=ps(pick),r=ps(real);
-  if(!p||!r) return {t:0,ex:false,r1:false,gl:false,gv:false};
-  var ex=(p.l===r.l&&p.v===r.v);
-  var r1=!ex&&r12x(p.l,p.v)===r12x(r.l,r.v);
-  var gl=!ex&&p.l===r.l;
-  var gv=!ex&&p.v===r.v;
-  var t=ex?7:(r1?2:0)+(gl?1:0)+(gv?1:0);
-  return {t:t,ex:ex,r1:r1,gl:gl,gv:gv};
+function r12x(l, v) { return l > v ? '1' : l < v ? '2' : 'X'; }
+function calcPts(pick, real) {
+  var p = ps(pick), r = ps(real);
+  if (!p || !r) return {t:0,ex:false,r1:false,gl:false,gv:false};
+  var ex = (p.l === r.l && p.v === r.v);
+  var r1 = !ex && r12x(p.l, p.v) === r12x(r.l, r.v);
+  var gl = !ex && p.l === r.l;
+  var gv = !ex && p.v === r.v;
+  var t = ex ? 7 : (r1 ? 2 : 0) + (gl ? 1 : 0) + (gv ? 1 : 0);
+  return {t:t, ex:ex, r1:r1, gl:gl, gv:gv};
 }
-function totalPts(n){
-  var t=0;
-  for(var i=0;i<P.length;i++){
-    var re=reales[P[i].id];
-    if(!re) continue;
-    var pk=pronos[n]?pronos[n][P[i].id]:null;
-    if(!pk) continue;
-    t+=calcPts(pk,re).t;
+function totalPts(n) {
+  var t = 0;
+  for (var i = 0; i < P.length; i++) {
+    var re = reales[P[i].id];
+    if (!re) continue;
+    var pk = pronos[n] ? pronos[n][P[i].id] : null;
+    if (!pk) continue;
+    t += calcPts(pk, re).t;
   }
   return t;
 }
-function jugados(){ var c=0; for(var i=0;i<P.length;i++) if(reales[P[i].id]) c++; return c; }
-function exactos(n){ var c=0; for(var i=0;i<P.length;i++){ var re=reales[P[i].id]; if(!re) continue; var pk=pronos[n]?pronos[n][P[i].id]:null; if(!pk) continue; if(calcPts(pk,re).ex) c++; } return c; }
+function jugados() { var c = 0; for (var i = 0; i < P.length; i++) if (reales[P[i].id]) c++; return c; }
+function exactosDe(n) {
+  var c = 0;
+  for (var i = 0; i < P.length; i++) {
+    var re = reales[P[i].id];
+    if (!re) continue;
+    var pk = pronos[n] ? pronos[n][P[i].id] : null;
+    if (!pk) continue;
+    if (calcPts(pk, re).ex) c++;
+  }
+  return c;
+}
 
-/* ===================================================
+/* =====================================================
    RANKING
-=================================================== */
-function renderRanking(){
-  var sc=[];
-  for(var i=0;i<parts.length;i++) sc.push({n:parts[i],pts:totalPts(parts[i]),ex:exactos(parts[i])});
-  sc.sort(function(a,b){return b.pts-a.pts;});
-  var mx=sc.length?Math.max(sc[0].pts,1):1;
-  var jug=jugados();
-
-  // stat cards
-  document.getElementById('statcards').innerHTML=
-    '<div class="sc"><div class="sv">'+parts.length+'</div><div class="sl">Jugadores</div></div>'+
-    '<div class="sc"><div class="sv">'+(sc.length?sc[0].pts:0)+'</div><div class="sl">Líder pts</div></div>'+
-    '<div class="sc"><div class="sv">'+jug+'</div><div class="sl">Jugados</div></div>'+
+===================================================== */
+function renderRanking() {
+  var sc = [];
+  for (var i = 0; i < parts.length; i++)
+    sc.push({n: parts[i], pts: totalPts(parts[i]), ex: exactosDe(parts[i])});
+  sc.sort(function(a, b) { return b.pts - a.pts; });
+  var mx = sc.length ? Math.max(sc[0].pts, 1) : 1;
+  var jug = jugados();
+  document.getElementById('statcards').innerHTML =
+    '<div class="sc"><div class="sv">' + parts.length + '</div><div class="sl">Jugadores</div></div>' +
+    '<div class="sc"><div class="sv">' + (sc.length ? sc[0].pts : 0) + '</div><div class="sl">Líder pts</div></div>' +
+    '<div class="sc"><div class="sv">' + jug + '</div><div class="sl">Jugados</div></div>' +
     '<div class="sc"><div class="sv">72</div><div class="sl">Total</div></div>';
-
-  var md=['🥇','🥈','🥉'];
-  var h='';
-  for(var i=0;i<sc.length;i++){
-    var s=sc[i];
-    var bh=Math.round(s.pts/mx*100);
-    var pos=i<3?md[i]:(i+1)+'';
-    h+='<div class="rrow" id="rr-'+i+'" onclick="togRank('+i+',\''+esc(s.n)+'\')">'+
-      '<div class="rhead">'+
-        '<div class="rpos">'+pos+'</div>'+
-        '<div class="rbar"><div class="rbarfill" style="height:'+bh+'%"></div></div>'+
-        '<div class="rinfo">'+
-          '<div class="rname">'+esc(s.n)+'</div>'+
-          '<div class="rsub">'+jug+' jugados · '+s.ex+' exactos</div>'+
-        '</div>'+
-        '<div class="rpts">'+s.pts+'</div>'+
-        '<div class="rchev">▼</div>'+
-      '</div>'+
-      '<div class="rdet" id="rd-'+i+'"></div>'+
+  var md = ['🥇','🥈','🥉'];
+  var h = '';
+  for (var i = 0; i < sc.length; i++) {
+    var s = sc[i];
+    var bh = Math.round(s.pts / mx * 100);
+    var pos = i < 3 ? md[i] : (i + 1) + '';
+    h += '<div class="rrow" id="rr-' + i + '" onclick="togRank(' + i + ',\'' + esc(s.n) + '\')">' +
+      '<div class="rhead">' +
+        '<div class="rpos">' + pos + '</div>' +
+        '<div class="rbar"><div class="rbarfill" style="height:' + bh + '%"></div></div>' +
+        '<div class="rinfo">' +
+          '<div class="rname">' + esc(s.n) + '</div>' +
+          '<div class="rsub">' + jug + ' jugados · ' + s.ex + ' exactos</div>' +
+        '</div>' +
+        '<div class="rpts">' + s.pts + '</div>' +
+        '<div class="rchev">▼</div>' +
+      '</div>' +
+      '<div class="rdet" id="rd-' + i + '"></div>' +
     '</div>';
   }
-  document.getElementById('ranklist').innerHTML=h;
+  document.getElementById('ranklist').innerHTML = h;
 }
 
-function togRank(idx,n){
-  var row=document.getElementById('rr-'+idx);
-  var det=document.getElementById('rd-'+idx);
-  var was=row.className.indexOf('open')>=0;
-  // cerrar todos
-  var rows=document.getElementsByClassName('rrow');
-  for(var i=0;i<rows.length;i++) rows[i].className='rrow';
-  if(!was){
-    row.className='rrow open';
-    det.innerHTML=buildBD(n);
+function togRank(idx, n) {
+  var row = document.getElementById('rr-' + idx);
+  var det = document.getElementById('rd-' + idx);
+  var was = row.className.indexOf('open') >= 0;
+  var rows = document.getElementsByClassName('rrow');
+  for (var i = 0; i < rows.length; i++) rows[i].className = 'rrow';
+  if (!was) {
+    row.className = 'rrow open';
+    det.innerHTML = buildBD(n);
   }
 }
 
-function buildBD(n){
-  var tot=totalPts(n);
-  var h='<div class="rdhead"><span class="rdtitle">'+esc(n)+'</span><span class="rdtotal">'+tot+' pts</span></div>'+
-    '<div class="rdscroll"><table class="rdtbl">'+
+function buildBD(n) {
+  var tot = totalPts(n);
+  var h = '<div class="rdhead"><span class="rdtitle">' + esc(n) + '</span><span class="rdtotal">' + tot + ' pts</span></div>' +
+    '<div class="rdscroll"><table class="rdtbl">' +
     '<thead><tr><th>Grp</th><th>Partido</th><th>Pick</th><th>Real</th><th>Exacto</th><th>1X2</th><th>G.Loc</th><th>G.Vis</th><th>Tot</th></tr></thead><tbody>';
-  var lj=0;
-  for(var i=0;i<P.length;i++){
-    var p=P[i];
-    if(p.j!==lj){
-      h+='<tr class="jsep"><td colspan="9">▸ JORNADA '+p.j+' — '+(p.j===1?'11-17 Jun':p.j===2?'18-23 Jun':'24-27 Jun')+'</td></tr>';
-      lj=p.j;
+  var lj = 0;
+  for (var i = 0; i < P.length; i++) {
+    var p = P[i];
+    if (p.j !== lj) {
+      h += '<tr class="jsep"><td colspan="9">▸ JORNADA ' + p.j + ' — ' + (p.j===1?'11-17 Jun':p.j===2?'18-23 Jun':'24-27 Jun') + '</td></tr>';
+      lj = p.j;
     }
-    var pk=pronos[n]?pronos[n][p.id]:null;
-    var re=reales[p.id];
-    var pts=pk&&re?calcPts(pk,re):null;
-    var ce,cr,cgl,cgv,ct;
-    if(!pk){
-      ce=cr=cgl=cgv=ct='<span class="chp chp-d">—</span>';
-    } else if(!re){
-      ce=cr=cgl=cgv=ct='<span class="chp chp-d">?</span>';
-    } else if(pts.ex){
-      ce='<span class="chp chp-g">+7</span>';
-      cr='<span class="chp chp-0 dimchp">✓</span>';
-      cgl='<span class="chp chp-0 dimchp">✓</span>';
-      cgv='<span class="chp chp-0 dimchp">✓</span>';
-      ct='<span class="chp chp-g">7</span>';
+    var pk = pronos[n] ? pronos[n][p.id] : null;
+    var re = reales[p.id];
+    var pts = pk && re ? calcPts(pk, re) : null;
+    var ce, cr, cgl, cgv, ct;
+    if (!pk) { ce = cr = cgl = cgv = ct = '<span class="chp chp-d">—</span>'; }
+    else if (!re) { ce = cr = cgl = cgv = ct = '<span class="chp chp-d">?</span>'; }
+    else if (pts.ex) {
+      ce = '<span class="chp chp-g">+7</span>';
+      cr = cgl = cgv = '<span class="chp chp-0 dimchp">✓</span>';
+      ct = '<span class="chp chp-g">7</span>';
     } else {
-      ce='<span class="chp chp-0">0</span>';
-      cr=pts.r1?'<span class="chp chp-c">+2</span>':'<span class="chp chp-0">0</span>';
-      cgl=pts.gl?'<span class="chp chp-c">+1</span>':'<span class="chp chp-0">0</span>';
-      cgv=pts.gv?'<span class="chp chp-c">+1</span>':'<span class="chp chp-0">0</span>';
-      ct=pts.t>0?'<span class="chp chp-c">'+pts.t+'</span>':'<span class="chp chp-0">0</span>';
+      ce = '<span class="chp chp-0">0</span>';
+      cr = pts.r1 ? '<span class="chp chp-c">+2</span>' : '<span class="chp chp-0">0</span>';
+      cgl = pts.gl ? '<span class="chp chp-c">+1</span>' : '<span class="chp chp-0">0</span>';
+      cgv = pts.gv ? '<span class="chp chp-c">+1</span>' : '<span class="chp chp-0">0</span>';
+      ct = pts.t > 0 ? '<span class="chp chp-c">' + pts.t + '</span>' : '<span class="chp chp-0">0</span>';
     }
-    h+='<tr>'+
-      '<td>'+p.g+'</td>'+
-      '<td class="tdm">'+p.l.e+' '+p.l.n+' vs '+p.v.n+' '+p.v.e+'</td>'+
-      '<td style="font-family:\'Courier New\',monospace">'+(pk||'—')+'</td>'+
-      '<td style="color:var(--c);font-family:\'Courier New\',monospace">'+(re||'—')+'</td>'+
-      '<td>'+ce+'</td><td>'+cr+'</td><td>'+cgl+'</td><td>'+cgv+'</td><td>'+ct+'</td>'+
-    '</tr>';
+    h += '<tr><td>' + p.g + '</td><td class="tdm">' + p.l.e + ' ' + p.l.n + ' vs ' + p.v.n + ' ' + p.v.e + '</td>' +
+      '<td style="font-family:\'Courier New\',monospace">' + (pk || '—') + '</td>' +
+      '<td style="color:var(--c);font-family:\'Courier New\',monospace">' + (re || '—') + '</td>' +
+      '<td>' + ce + '</td><td>' + cr + '</td><td>' + cgl + '</td><td>' + cgv + '</td><td>' + ct + '</td></tr>';
   }
-  h+='</tbody></table></div>';
+  h += '</tbody></table></div>';
   return h;
 }
 
-/* ===================================================
+/* =====================================================
    PICKS
-=================================================== */
-function populatePkParts(){
-  var sel=document.getElementById('pk-par');
-  var cur=sel.value;
-  sel.innerHTML='<option value="">— Selecciona —</option>';
-  for(var i=0;i<parts.length;i++)
-    sel.innerHTML+='<option value="'+esc(parts[i])+'"'+(parts[i]===cur?' selected':'')+'>'+esc(parts[i])+'</option>';
+===================================================== */
+function populatePkParts() {
+  var sel = document.getElementById('pk-par');
+  var cur = sel.value;
+  sel.innerHTML = '<option value="">— Selecciona —</option>';
+  for (var i = 0; i < parts.length; i++)
+    sel.innerHTML += '<option value="' + esc(parts[i]) + '"' + (parts[i] === cur ? ' selected' : '') + '>' + esc(parts[i]) + '</option>';
 }
-function renderPicks(){
-  var par=document.getElementById('pk-par').value;
-  var grp=document.getElementById('pk-grp').value;
-  var jor=document.getElementById('pk-jor').value;
-  var el=document.getElementById('picklist');
-  if(!par){el.innerHTML='<div class="pkempty">Selecciona un participante<br>para ver sus picks</div>';return;}
-  var pp=P.slice();
-  if(grp) pp=pp.filter(function(x){return x.g===grp;});
-  if(jor) pp=pp.filter(function(x){return x.j==jor;});
-  var h='';var lg='';var lj=0;
-  for(var i=0;i<pp.length;i++){
-    var p=pp[i];
-    if(p.g!==lg){h+='<div class="gsep">▸ Grupo '+p.g+'</div>';lg=p.g;lj=0;}
-    if(p.j!==lj){h+='<div style="font-size:10px;color:var(--t3);margin:-3px 0 6px;font-weight:700;letter-spacing:1px;text-transform:uppercase">Jornada '+p.j+'</div>';lj=p.j;}
-    var pk=pronos[par]?pronos[par][p.id]:null;
-    var re=reales[p.id];
-    var pts=pk&&re?calcPts(pk,re):null;
-    var chi='';
-    if(pts){
-      if(pts.ex) chi='<span class="chp chp-g">EXACTO +7</span>';
-      else if(pts.t>0) chi='<span class="chp chp-c">+'+pts.t+'</span>';
-      else chi='<span class="chp chp-0">0</span>';
-    } else if(pk&&!re) chi='<span class="chp chp-d">pdte</span>';
-    h+='<div class="pkitem">'+
-      '<div class="pktop">'+
-        '<span class="pkbadge">G'+p.g+' J'+p.j+'</span>'+
-        '<span class="pkteams">'+p.l.e+' '+p.l.n+' — '+p.v.n+' '+p.v.e+'</span>'+
-        '<span class="pkscore">'+(pk||'—')+'</span>'+chi+
-      '</div>'+
-      (re?'<div class="pksub">'+p.f+' · Real: <strong style="color:var(--c)">'+re+'</strong></div>':'<div class="pksub">'+p.f+'</div>')+
-    '</div>';
+function renderPicks() {
+  var par = document.getElementById('pk-par').value;
+  var grp = document.getElementById('pk-grp').value;
+  var jor = document.getElementById('pk-jor').value;
+  var el = document.getElementById('picklist');
+  if (!par) { el.innerHTML = '<div class="pkempty">Selecciona un participante<br>para ver sus picks</div>'; return; }
+  var pp = P.slice();
+  if (grp) pp = pp.filter(function(x) { return x.g === grp; });
+  if (jor) pp = pp.filter(function(x) { return x.j == jor; });
+  var h = '', lg = '', lj = 0;
+  for (var i = 0; i < pp.length; i++) {
+    var p = pp[i];
+    if (p.g !== lg) { h += '<div class="gsep">▸ Grupo ' + p.g + '</div>'; lg = p.g; lj = 0; }
+    if (p.j !== lj) { h += '<div style="font-size:10px;color:var(--t3);margin:-3px 0 6px;font-weight:700;letter-spacing:1px;text-transform:uppercase">Jornada ' + p.j + '</div>'; lj = p.j; }
+    var pk = pronos[par] ? pronos[par][p.id] : null;
+    var re = reales[p.id];
+    var pts = pk && re ? calcPts(pk, re) : null;
+    var chi = '';
+    if (pts) {
+      if (pts.ex) chi = '<span class="chp chp-g">EXACTO +7</span>';
+      else if (pts.t > 0) chi = '<span class="chp chp-c">+' + pts.t + '</span>';
+      else chi = '<span class="chp chp-0">0</span>';
+    } else if (pk && !re) chi = '<span class="chp chp-d">pdte</span>';
+    h += '<div class="pkitem"><div class="pktop">' +
+      '<span class="pkbadge">G' + p.g + ' J' + p.j + '</span>' +
+      '<span class="pkteams">' + p.l.e + ' ' + p.l.n + ' — ' + p.v.n + ' ' + p.v.e + '</span>' +
+      '<span class="pkscore">' + (pk || '—') + '</span>' + chi +
+      '</div>' +
+      (re ? '<div class="pksub">' + p.f + ' · Real: <strong style="color:var(--c)">' + re + '</strong></div>' : '<div class="pksub">' + p.f + '</div>') +
+      '</div>';
   }
-  el.innerHTML=h||'<div class="pkempty">Sin partidos</div>';
+  el.innerHTML = h || '<div class="pkempty">Sin partidos</div>';
 }
 
-/* ===================================================
+/* =====================================================
    SCORES
-=================================================== */
-function renderScores(){
-  var gs='ABCDEFGHIJKL'.split('');
-  var ph='<button class="pill'+(scGrp===''?' on':'')+'" onclick="setScGrp(\'\')">Todos</button>';
-  for(var i=0;i<gs.length;i++) ph+='<button class="pill'+(scGrp===gs[i]?' on':'')+'" onclick="setScGrp(\''+gs[i]+'\')">G'+gs[i]+'</button>';
-  document.getElementById('scorepills').innerHTML=ph;
-  var pp=P.slice();
-  if(scGrp) pp=pp.filter(function(x){return x.g===scGrp;});
-  var h='';
-  for(var i=0;i<pp.length;i++){
-    var p=pp[i];
-    var re=reales[p.id];
-    var rl='',rv='';
-    if(re){var rp=re.split('-');rl=rp[0];rv=rp[1];}
-    h+='<div class="scitem">'+
-      '<div class="sctop">'+
-        '<span class="scgrp">G'+p.g+' J'+p.j+'</span>'+
-        (re?'<div class="dot-ok"></div>':'<div class="dot-pend"></div>')+
-        '<span class="scdate">'+p.f+'</span>'+
-      '</div>'+
-      '<div class="scrow">'+
-        '<div class="scteam">'+p.l.e+' '+p.l.n+'</div>'+
-        '<input class="scinp" id="sl-'+p.id+'" type="number" inputmode="numeric" min="0" max="99" value="'+rl+'" placeholder="–">'+
-        '<span class="scdash">–</span>'+
-        '<input class="scinp" id="sv-'+p.id+'" type="number" inputmode="numeric" min="0" max="99" value="'+rv+'" placeholder="–">'+
-        '<div class="scteam r">'+p.v.n+' '+p.v.e+'</div>'+
-      '</div>'+
-      '<button class="scsave" onclick="saveScore(\''+p.id+'\')">Guardar</button>'+
-      '<div class="scok" id="sok-'+p.id+'">▸ Guardado ✓</div>'+
+===================================================== */
+function renderScores() {
+  var gs = 'ABCDEFGHIJKL'.split('');
+  var ph = '<button class="pill' + (scGrp === '' ? ' on' : '') + '" onclick="setScGrp(\'\')">Todos</button>';
+  for (var i = 0; i < gs.length; i++)
+    ph += '<button class="pill' + (scGrp === gs[i] ? ' on' : '') + '" onclick="setScGrp(\'' + gs[i] + '\')">G' + gs[i] + '</button>';
+  document.getElementById('scorepills').innerHTML = ph;
+  var pp = P.slice();
+  if (scGrp) pp = pp.filter(function(x) { return x.g === scGrp; });
+  var h = '';
+  for (var i = 0; i < pp.length; i++) {
+    var p = pp[i];
+    var re = reales[p.id];
+    var rl = '', rv = '';
+    if (re) { var rp = re.split('-'); rl = rp[0]; rv = rp[1]; }
+    h += '<div class="scitem">' +
+      '<div class="sctop">' +
+        '<span class="scgrp">G' + p.g + ' J' + p.j + '</span>' +
+        (re ? '<div class="dot-ok"></div>' : '<div class="dot-pend"></div>') +
+        '<span class="scdate">' + p.f + '</span>' +
+      '</div>' +
+      '<div class="scrow">' +
+        '<div class="scteam">' + p.l.e + ' ' + p.l.n + '</div>' +
+        '<input class="scinp" id="sl-' + p.id + '" type="number" inputmode="numeric" min="0" max="99" value="' + rl + '" placeholder="–">' +
+        '<span class="scdash">–</span>' +
+        '<input class="scinp" id="sv-' + p.id + '" type="number" inputmode="numeric" min="0" max="99" value="' + rv + '" placeholder="–">' +
+        '<div class="scteam r">' + p.v.n + ' ' + p.v.e + '</div>' +
+      '</div>' +
+      '<button class="scsave" onclick="saveScore(\'' + p.id + '\')">Guardar</button>' +
+      '<div class="scok" id="sok-' + p.id + '">▸ Guardado en la nube ✓</div>' +
+      '<div class="scerr" id="serr-' + p.id + '">✗ Error al guardar</div>' +
     '</div>';
   }
-  document.getElementById('scorelist').innerHTML=h;
+  document.getElementById('scorelist').innerHTML = h;
 }
-function setScGrp(g){scGrp=g;renderScores();}
-function saveScore(id){
-  var lv=document.getElementById('sl-'+id).value;
-  var rv=document.getElementById('sv-'+id).value;
-  if(lv===''||rv==='') return;
-  reales[id]=lv+'-'+rv;
-  saveData();
-  renderRanking();
-  var ok=document.getElementById('sok-'+id);
-  ok.style.display='block';
-  setTimeout(function(){ok.style.display='none';},2500);
-  // actualizar dot
-  renderScores();
+function setScGrp(g) { scGrp = g; renderScores(); }
+function saveScore(id) {
+  var lv = document.getElementById('sl-' + id).value;
+  var rv = document.getElementById('sv-' + id).value;
+  if (lv === '' || rv === '') return;
+  reales[id] = lv + '-' + rv;
+  var btn = document.querySelector('[onclick="saveScore(\'' + id + '\')"]');
+  if (btn) btn.disabled = true;
+  binWrite(getCurrentData(), function(err) {
+    if (btn) btn.disabled = false;
+    var ok = document.getElementById('sok-' + id);
+    var er = document.getElementById('serr-' + id);
+    if (err) {
+      er.style.display = 'block';
+      setTimeout(function() { er.style.display = 'none'; }, 3000);
+    } else {
+      renderRanking();
+      ok.style.display = 'block';
+      setTimeout(function() { ok.style.display = 'none'; }, 2500);
+      renderScores();
+    }
+  });
 }
 
-/* ===================================================
+/* =====================================================
    CONFIG
-=================================================== */
-function renderConfig(){
-  // Tags
-  var t='';
-  for(var i=0;i<parts.length;i++)
-    t+='<div class="tag">'+esc(parts[i])+'<button class="tagx" onclick="delPart('+i+')">✕</button></div>';
-  document.getElementById('parttags').innerHTML=t;
-  // Chips participantes
-  var pc='';
-  for(var i=0;i<parts.length;i++)
-    pc+='<button class="pchip'+(parts[i]===cfgPart?' on':'')+'" onclick="setCfgPart(\''+esc(parts[i])+'\')">'+esc(parts[i])+'</button>';
-  document.getElementById('cfgpartchips').innerHTML=pc;
-  // Pills grupo
-  var gs='ABCDEFGHIJKL'.split('');
-  var gp='<button class="pill'+(cfgGrp===''?' on':'')+'" onclick="setCfgGrp(\'\')">Todos</button>';
-  for(var i=0;i<gs.length;i++) gp+='<button class="pill'+(cfgGrp===gs[i]?' on':'')+'" onclick="setCfgGrp(\''+gs[i]+'\')">G'+gs[i]+'</button>';
-  document.getElementById('cfggrppills').innerHTML=gp;
+===================================================== */
+function renderConfig() {
+  var t = '';
+  for (var i = 0; i < parts.length; i++)
+    t += '<div class="tag">' + esc(parts[i]) + '<button class="tagx" onclick="delPart(' + i + ')">✕</button></div>';
+  document.getElementById('parttags').innerHTML = t;
+  var pc = '';
+  for (var i = 0; i < parts.length; i++)
+    pc += '<button class="pchip' + (parts[i] === cfgPart ? ' on' : '') + '" onclick="setCfgPart(\'' + esc(parts[i]) + '\')">' + esc(parts[i]) + '</button>';
+  document.getElementById('cfgpartchips').innerHTML = pc;
+  var gs = 'ABCDEFGHIJKL'.split('');
+  var gp = '<button class="pill' + (cfgGrp === '' ? ' on' : '') + '" onclick="setCfgGrp(\'\')">Todos</button>';
+  for (var i = 0; i < gs.length; i++)
+    gp += '<button class="pill' + (cfgGrp === gs[i] ? ' on' : '') + '" onclick="setCfgGrp(\'' + gs[i] + '\')">G' + gs[i] + '</button>';
+  document.getElementById('cfggrppills').innerHTML = gp;
   renderPronoForm();
 }
-function setCfgPart(n){cfgPart=n;renderConfig();}
-function setCfgGrp(g){cfgGrp=g;renderConfig();}
-function renderPronoForm(){
-  if(!cfgPart){document.getElementById('cfgform').innerHTML='<div style="text-align:center;padding:20px;font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px">Selecciona un jugador</div>';return;}
-  var pp=P.slice();
-  if(cfgGrp) pp=pp.filter(function(x){return x.g===cfgGrp;});
-  var h='';var lg='';
-  for(var i=0;i<pp.length;i++){
-    var p=pp[i];
-    if(p.g!==lg){h+='<div class="prgtitle">▸ Grupo '+p.g+'</div>';lg=p.g;}
-    var pk=pronos[cfgPart]?pronos[cfgPart][p.id]:null;
-    var pl='',pv='';
-    if(pk){var pp2=pk.split('-');pl=pp2[0];pv=pp2[1];}
-    h+='<div class="prrow">'+
-      '<div class="prteam r">'+p.l.e+' '+p.l.n+'</div>'+
-      '<input class="prinp" id="pi-l-'+p.id+'" type="number" inputmode="numeric" min="0" max="99" value="'+pl+'" placeholder="0">'+
-      '<span class="prsep">–</span>'+
-      '<input class="prinp" id="pi-v-'+p.id+'" type="number" inputmode="numeric" min="0" max="99" value="'+pv+'" placeholder="0">'+
-      '<div class="prteam">'+p.v.n+' '+p.v.e+'</div>'+
+function setCfgPart(n) { cfgPart = n; renderConfig(); }
+function setCfgGrp(g) { cfgGrp = g; renderConfig(); }
+function renderPronoForm() {
+  if (!cfgPart) {
+    document.getElementById('cfgform').innerHTML = '<div style="text-align:center;padding:20px;font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px">Selecciona un jugador</div>';
+    return;
+  }
+  var pp = P.slice();
+  if (cfgGrp) pp = pp.filter(function(x) { return x.g === cfgGrp; });
+  var h = '', lg = '';
+  for (var i = 0; i < pp.length; i++) {
+    var p = pp[i];
+    if (p.g !== lg) { h += '<div class="prgtitle">▸ Grupo ' + p.g + '</div>'; lg = p.g; }
+    var pk = pronos[cfgPart] ? pronos[cfgPart][p.id] : null;
+    var pl = '', pv = '';
+    if (pk) { var pp2 = pk.split('-'); pl = pp2[0]; pv = pp2[1]; }
+    h += '<div class="prrow">' +
+      '<div class="prteam r">' + p.l.e + ' ' + p.l.n + '</div>' +
+      '<input class="prinp" id="pi-l-' + p.id + '" type="number" inputmode="numeric" min="0" max="99" value="' + pl + '" placeholder="0">' +
+      '<span class="prsep">–</span>' +
+      '<input class="prinp" id="pi-v-' + p.id + '" type="number" inputmode="numeric" min="0" max="99" value="' + pv + '" placeholder="0">' +
+      '<div class="prteam">' + p.v.n + ' ' + p.v.e + '</div>' +
     '</div>';
   }
-  document.getElementById('cfgform').innerHTML=h;
+  document.getElementById('cfgform').innerHTML = h;
 }
-function saveAllPronos(){
-  if(!cfgPart){alert('Selecciona un jugador primero');return;}
-  if(!pronos[cfgPart]) pronos[cfgPart]={};
-  var pp=P.slice();
-  if(cfgGrp) pp=pp.filter(function(x){return x.g===cfgGrp;});
-  for(var i=0;i<pp.length;i++){
-    var p=pp[i];
-    var li=document.getElementById('pi-l-'+p.id);
-    var vi=document.getElementById('pi-v-'+p.id);
-    if(li&&vi&&li.value!==''&&vi.value!=='') pronos[cfgPart][p.id]=li.value+'-'+vi.value;
+function saveAllPronos() {
+  if (!cfgPart) { alert('Selecciona un jugador primero'); return; }
+  if (!pronos[cfgPart]) pronos[cfgPart] = {};
+  var pp = P.slice();
+  if (cfgGrp) pp = pp.filter(function(x) { return x.g === cfgGrp; });
+  for (var i = 0; i < pp.length; i++) {
+    var p = pp[i];
+    var li = document.getElementById('pi-l-' + p.id);
+    var vi = document.getElementById('pi-v-' + p.id);
+    if (li && vi && li.value !== '' && vi.value !== '')
+      pronos[cfgPart][p.id] = li.value + '-' + vi.value;
   }
-  saveData();
-  renderRanking();
-  var b=document.querySelector('.savebtn');
-  b.textContent='✓ Pronósticos guardados';
-  setTimeout(function(){b.textContent='▸ Guardar Pronósticos';},2500);
+  var btn = document.getElementById('savepronobtn');
+  btn.disabled = true;
+  btn.textContent = '▸ Guardando...';
+  binWrite(getCurrentData(), function(err) {
+    btn.disabled = false;
+    if (err) {
+      btn.textContent = '✗ Error, reintenta';
+      setTimeout(function() { btn.textContent = '▸ Guardar Pronósticos'; }, 3000);
+    } else {
+      btn.textContent = '✓ Guardado en la nube';
+      renderRanking();
+      setTimeout(function() { btn.textContent = '▸ Guardar Pronósticos'; }, 2500);
+    }
+  });
 }
-function addPart(){
-  var inp=document.getElementById('cfg-np');
-  var n=(inp.value||'').trim();
-  if(!n) return;
-  if(parts.indexOf(n)>=0){alert('Ya existe este participante');return;}
+function addPart() {
+  var inp = document.getElementById('cfg-np');
+  var n = (inp.value || '').trim();
+  if (!n) return;
+  if (parts.indexOf(n) >= 0) { alert('Ya existe este participante'); return; }
   parts.push(n);
-  if(!pronos[n]) pronos[n]={};
-  saveData();inp.value='';
-  renderConfig();populatePkParts();renderRanking();
+  if (!pronos[n]) pronos[n] = {};
+  inp.value = '';
+  binWrite(getCurrentData(), function(err) {
+    if (!err) { renderConfig(); populatePkParts(); renderRanking(); }
+    else alert('Error al guardar. Comprueba la conexión.');
+  });
 }
-function delPart(i){
-  var n=parts[i];
-  if(!confirm('¿Eliminar a '+n+'?')) return;
-  parts.splice(i,1);delete pronos[n];
-  saveData();renderConfig();populatePkParts();renderRanking();
+function delPart(i) {
+  var n = parts[i];
+  if (!confirm('¿Eliminar a ' + n + '?')) return;
+  parts.splice(i, 1);
+  delete pronos[n];
+  binWrite(getCurrentData(), function(err) {
+    if (!err) { renderConfig(); populatePkParts(); renderRanking(); }
+    else alert('Error al guardar.');
+  });
 }
 
-/* ===================================================
+/* =====================================================
    NAVEGACIÓN
-=================================================== */
-var pages=['ranking','picks','scores','config'];
-function goPage(name){
-  for(var i=0;i<pages.length;i++){
-    var cls=document.getElementById('pg-'+pages[i]).className.replace(' on','');
-    document.getElementById('pg-'+pages[i]).className=cls;
-    document.getElementById('nb-'+pages[i]).className='nb';
+===================================================== */
+var pages = ['ranking','picks','scores','config'];
+function goPage(name) {
+  for (var i = 0; i < pages.length; i++) {
+    document.getElementById('pg-' + pages[i]).className = 'pg';
+    document.getElementById('nb-' + pages[i]).className = 'nb';
   }
-  document.getElementById('pg-'+name).className='pg on';
-  document.getElementById('nb-'+name).className='nb on';
-  curPage=name;
-  window.scrollTo(0,0);
-  if(name==='scores') renderScores();
-  if(name==='picks'){populatePkParts();renderPicks();}
-  if(name==='config') renderConfig();
+  document.getElementById('pg-' + name).className = 'pg on';
+  document.getElementById('nb-' + name).className = 'nb on';
+  curPage = name;
+  window.scrollTo(0, 0);
+  if (name === 'scores') renderScores();
+  if (name === 'picks') { populatePkParts(); renderPicks(); }
+  if (name === 'config') renderConfig();
 }
 
-/* ===================================================
+/* =====================================================
    TELETEXTO
-=================================================== */
-function toggleTT(){
-  ttMode=!ttMode;
-  if(ttMode){document.body.className='tt';document.getElementById('btn-tt').textContent='🎨 FUTURISTA';}
-  else{document.body.className='';document.getElementById('btn-tt').textContent='📺 TELETEXTO';}
+===================================================== */
+function toggleTT() {
+  ttMode = !ttMode;
+  document.body.className = ttMode ? 'tt' : '';
+  document.getElementById('btn-tt').textContent = ttMode ? '🎨 FUTURISTA' : '📺 TELETEXTO';
 }
 
-/* ===================================================
+/* =====================================================
    UTILS
-=================================================== */
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+===================================================== */
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
 
-/* ===================================================
-   INIT
-=================================================== */
-loadData();
-renderRanking();
-populatePkParts();
+/* =====================================================
+   INIT — carga datos desde JSONBin
+===================================================== */
+function init() {
+  document.getElementById('load-msg').textContent = 'Cargando datos...';
+  binRead(function(err, data) {
+    if (err || !data) {
+      // Si falla la red, cargamos demo
+      document.getElementById('load-msg').textContent = 'Sin conexión, cargando demo...';
+      parts = DEMO.participantes.slice();
+      pronos = DEMO.pronos;
+      reales = DEMO.resultados;
+    } else {
+      // Datos del bin — si está vacío o sin estructura, cargar demo
+      if (!data.participantes || !data.participantes.length) {
+        parts = DEMO.participantes.slice();
+        pronos = DEMO.pronos;
+        reales = DEMO.resultados;
+        // Escribir demo en el bin para la próxima vez
+        binWrite(getCurrentData(), null);
+      } else {
+        parts = data.participantes || [];
+        pronos = data.pronos || {};
+        reales = data.resultados || {};
+      }
+    }
+    renderRanking();
+    populatePkParts();
+    // Ocultar pantalla de carga
+    var ls = document.getElementById('loadscreen');
+    ls.style.opacity = '0';
+    ls.style.transition = 'opacity .4s';
+    setTimeout(function() { ls.style.display = 'none'; }, 400);
+  });
+}
+
+init();
 </script>
 </body>
 </html>
